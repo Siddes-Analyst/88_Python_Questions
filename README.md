@@ -857,7 +857,15 @@ inc_dec_frame[(inc_dec_frame["unit_diff"] < 0) & (inc_dec_frame["sales_diff"] > 
 
 ``` python
 
+month_cumulative = rice.copy()
 
+month_cum_Frame = pd.DataFrame(month_cumulative.groupby(["Year", "Month_Name", "Month"])["Sales"].sum())
+
+month_cum_Frame = month_cum_Frame.sort_values(by=["Year", "Month"])
+
+month_cum_Frame["cumulative"] = month_cum_Frame["Sales"].cumsum()
+
+month_cum_Frame.head(25)
 
 ```
 
@@ -873,7 +881,19 @@ inc_dec_frame[(inc_dec_frame["unit_diff"] < 0) & (inc_dec_frame["sales_diff"] > 
 
 ``` python
 
+loc_cum = rice.copy()
 
+loc_cum_frame = pd.DataFrame(loc_cum.groupby(["Location", "Year", "Month_Name", "Month"])["Profit"].sum())
+
+loc_cum_frame = loc_cum_frame.sort_values(by=["Location", "Year", "Month"])
+
+loc_cum_frame["Cumulative"] = loc_cum_frame.groupby("Location")["Profit"].cumsum()
+
+value_filter = loc_cum_frame.xs((2024, "December"), level=("Year", "Month_Name"))
+
+value_filter = value_filter.sort_values(by=["Cumulative"], ascending=False)
+
+value_filter
 
 ```
 
@@ -889,7 +909,23 @@ inc_dec_frame[(inc_dec_frame["unit_diff"] < 0) & (inc_dec_frame["sales_diff"] > 
 
 ``` python
 
+year_sus = rice.copy()
 
+year_sus_fra = pd.DataFrame(year_sus.groupby(["Product Category", "Year"])["Sales"].sum())
+
+year_sus_fra["previous_year"] = year_sus_fra.groupby("Product Category")["Sales"].shift(1)
+
+year_sus_fra["Diff"] = year_sus_fra["Sales"] - year_sus_fra["previous_year"]
+
+year_sus_fra["Diff"] = year_sus_fra["Sales"] - year_sus_fra["previous_year"]
+
+filter_val = year_sus_fra.groupby("Product Category")["Diff"].apply(lambda x : x.dropna().gt(0).all())
+
+fil_index = filter_val[filter_val].index
+
+year_sus_fra = year_sus_fra.reset_index()
+
+year_sus_fra[year_sus_fra["Product Category"].isin(fil_index)]
 
 ```
 
@@ -905,7 +941,23 @@ inc_dec_frame[(inc_dec_frame["unit_diff"] < 0) & (inc_dec_frame["sales_diff"] > 
 
 ``` python
 
+unit_sus = rice.copy()
 
+unit_frame = pd.DataFrame(unit_sus.groupby(["Product Category", "Year"])["Unit Sold"].sum())
+
+unit_frame = unit_frame.sort_values(by=["Product Category", "Year"])
+
+unit_frame["pre year"] = unit_frame.groupby("Product Category")["Unit Sold"].shift(1)
+
+unit_frame["Diff"] = unit_frame["Unit Sold"] - unit_frame["pre year"]
+
+frame_filter = unit_frame.groupby(["Product Category"])["Diff"].apply(lambda x : x.dropna().lt(0).all())
+
+frame_filter[frame_filter].index
+
+unit_frame = unit_frame.reset_index()
+
+unit_frame[unit_frame["Product Category"].isin(frame_filter)]
 
 ```
 
@@ -921,7 +973,19 @@ inc_dec_frame[(inc_dec_frame["unit_diff"] < 0) & (inc_dec_frame["sales_diff"] > 
 
 ``` python
 
+gro_dec_sta = rice.copy()
 
+gro_frame = pd.DataFrame(gro_dec_sta.groupby(["Rice Brand", "Year"])["Sales"].sum())
+
+gro_frame = gro_frame.sort_values(by=["Rice Brand", "Year"])
+
+gro_frame["Pre_year"] = gro_frame.groupby("Rice Brand")["Sales"].shift(1)
+
+gro_frame["Growth"] = ((gro_frame["Sales"] - gro_frame["Pre_year"]) / gro_frame["Pre_year"]) * 100
+
+gro_frame["Growth"] = gro_frame["Growth"].apply(lambda x : f"{x :.2f} %")
+
+gro_frame
 
 ```
 
@@ -937,7 +1001,17 @@ inc_dec_frame[(inc_dec_frame["unit_diff"] < 0) & (inc_dec_frame["sales_diff"] > 
 
 ``` python
 
+long_term = rice.copy()
 
+long_term_frame = pd.DataFrame(long_term.groupby(["Product Name", "Year"])["Sales"].sum())
+
+long_term_frame["Pre Year"] = long_term_frame.groupby("Product Name")["Sales"].shift(1)
+
+long_term_frame["Diff"] = ((long_term_frame["Sales"] - long_term_frame["Pre Year"]) / long_term_frame["Pre Year"]) * 100
+
+long_calculation = long_term_frame.groupby("Product Name")["Diff"].agg(["min", "mean", "max"])
+
+long_calculation
 
 ```
 
@@ -953,7 +1027,23 @@ inc_dec_frame[(inc_dec_frame["unit_diff"] < 0) & (inc_dec_frame["sales_diff"] > 
 
 ``` python
 
+five_year_per = rice.copy()
 
+five_frame = pd.DataFrame(five_year_per.groupby(["Year", "Product Category"])["Sales"].sum())
+
+year_sum = five_frame.groupby("Year")["Sales"].sum()
+
+year_sum = year_sum.reset_index()
+
+five_frame = five_frame.reset_index()
+
+five_frame["Total_sales"] = five_frame["Year"].map(year_sum.set_index("Year")["Sales"])
+
+five_frame["contribution"] = (five_frame["Sales"] / five_frame["Total_sales"]) * 100
+
+five_frame["contribution"] = five_frame["contribution"].apply(lambda x: f"{x :.2f} %")
+
+five_frame
 
 ```
 
