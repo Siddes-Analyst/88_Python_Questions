@@ -28,3 +28,6 @@ gross_value["Margin Percentage"] = (gross_value["Profit"] / gross_value["Total_S
 gross_value["Margin Percentage"] = gross_value["Margin Percentage"].map(lambda x: f"{x:.2f} %")
 
 gross_value
+
+```
+![](Screenshot 2026-10-06 115845.png)
