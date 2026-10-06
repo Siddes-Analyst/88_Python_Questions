@@ -112,6 +112,33 @@ pro_calculation
 
 #### *Which months generated the highest and lowest total revenue?*
 
+``` python
+
+months_values = rice
+
+months_values.head()
+
+months_values["month_names"] = months_values["Date"].dt.month_name()
+
+months_values["Total_Sales"] = months_values["Per Unit Price (INR)"] * months_values["Unit Sold"]
+
+Values_seperation = months_values[["month_names", "Total_Sales"]]
+
+month_result = Values_seperation.groupby("month_names")["Total_Sales"].sum()
+
+month_result.sort_values(inplace=True, ascending=False)
+
+month_result
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/4.1.png)
+![](Git_hub_Output/4.2.png)
+
+---
+
 ### <b> Q5 </b>
 
 #### *Which brands generated the highest total units sold?*
