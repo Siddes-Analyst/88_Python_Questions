@@ -4,30 +4,34 @@
 
 ```python
 
-rice_values = rice[["Date", "Per Unit Price (INR)", "Purchase Cost (INR)", "Unit Sold"]]
+value_calculation["Total_Sales"] = value_calculation["Per Unit Price (INR)"] * value_calculation["Unit Sold"]
 
-rice_values.set_index("Date", inplace=True)
+value_calculation["Total_Purchase"] = value_calculation["Purchase Cost (INR)"] * value_calculation["Unit Sold"]
 
-rice_values = rice_values.rename(columns={
-    "Purchase Cost (INR)": "Purchase Cost",
-    "Unit Sold": "Quantity",
-    "Per Unit Price (INR)": "Sales"
-})
+value_calculation["Profit"] = value_calculation["Total_Sales"] - value_calculation["Total_Purchase"]
 
+a = value_calculation["Total_Sales"].sum()
+a
 
-rice_values["Total_Sales"] = (rice_values["Sales"] * rice_values["Quantity"])
+b = value_calculation["Total_Purchase"].sum()
+b
 
-rice_values["Total_Purchase"] = (rice_values["Purchase Cost"] * rice_values["Quantity"])
+c = value_calculation["Profit"].sum()
+c
 
-rice_values["Profit"] = (rice_values["Total_Sales"] - rice_values["Total_Purchase"])
+d = value_calculation["Unit Sold"].sum()
+d
 
-gross_value = rice_values.resample("YE").sum()
+e = (c / a) * 100
+e = f"{e:.2f} %"
+e
 
-gross_value["Margin Percentage"] = (gross_value["Profit"] / gross_value["Total_Sales"]) * 100
+final_calculation = pd.Series(
+    [a, d, b, c, e],
+    index=["Total Revenue", "Total Units Sold", "Total Purchase Cost", "Total Gross Profit", "Gross Margin Percentages"]
+)
 
-gross_value["Margin Percentage"] = gross_value["Margin Percentage"].map(lambda x: f"{x:.2f} %")
-
-gross_value
+final_calculation
 
 ```
 ![](https://github.com/Siddes-Analyst/88_Python_Questions/blob/main/Screenshot%202026-10-06%20115845.png)
