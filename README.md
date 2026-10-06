@@ -30,4 +30,4 @@ gross_value["Margin Percentage"] = gross_value["Margin Percentage"].map(lambda x
 gross_value
 
 ```
-![](Screenshot 2026-10-06 115845.png)
+![](https://github.com/Siddes-Analyst/88_Python_Questions/blob/main/Screenshot%202026-10-06%20115845.png)
