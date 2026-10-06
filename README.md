@@ -15,28 +15,16 @@ rice_values = rice_values.rename(columns={
 })
 
 
-rice_values["Total_Sales"] = (
-    rice_values["Sales"] * rice_values["Quantity"]
-)
+rice_values["Total_Sales"] = (rice_values["Sales"] * rice_values["Quantity"])
 
-rice_values["Total_Purchase"] = (
-    rice_values["Purchase Cost"] * rice_values["Quantity"]
-)
+rice_values["Total_Purchase"] = (rice_values["Purchase Cost"] * rice_values["Quantity"])
 
-# Calculate profit
-rice_values["Profit"] = (
-    rice_values["Total_Sales"] - rice_values["Total_Purchase"]
-)
+rice_values["Profit"] = (rice_values["Total_Sales"] - rice_values["Total_Purchase"])
 
 gross_value = rice_values.resample("YE").sum()
 
+gross_value["Margin Percentage"] = (gross_value["Profit"] / gross_value["Total_Sales"]) * 100
 
-gross_value["Margin Percentage"] = (
-    gross_value["Profit"] / gross_value["Total_Sales"]
-) * 100
-
-gross_value["Margin Percentage"] = gross_value["Margin Percentage"].map(
-    lambda x: f"{x:.2f} %"
-)
+gross_value["Margin Percentage"] = gross_value["Margin Percentage"].map(lambda x: f"{x:.2f} %")
 
 gross_value
