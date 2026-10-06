@@ -459,7 +459,9 @@ avg_cal[(avg_cal["Sales_segment"] == "High_Revenue") & (avg_cal["profit_segment"
 
 ``` python
 
+top_10 = rice.copy()
 
+top_10.groupby("Product Name")["Sales"].sum().sort_values(ascending= False).head(10)
 
 ```
 
@@ -475,7 +477,9 @@ avg_cal[(avg_cal["Sales_segment"] == "High_Revenue") & (avg_cal["profit_segment"
 
 ``` python
 
+top_5_profit = rice.groupby("Rice Brand")["Profit"].sum().sort_values(ascending= False).head(5)
 
+top_5_profit
 
 ```
 
@@ -491,13 +495,26 @@ avg_cal[(avg_cal["Sales_segment"] == "High_Revenue") & (avg_cal["profit_segment"
 
 ``` python
 
+top_3 = rice.copy()
 
+first_way = top_3.groupby(["Product Category", "Product Name"])["Sales"].sum().groupby(level= 0).nlargest(3)
 
 ```
 
 ## 📷 Output
 
 ![](Git_hub_Output/17.1.png)
+
+``` python
+
+sec_way = top_3.groupby(["Product Category", "Product Name"])["Sales"].sum().reset_index()
+
+sec_way.sort_values(by= ["Product Category", "Sales"], ascending= False).groupby("Product Category").head(3)
+
+```
+
+## 📷 Output
+
 ![](Git_hub_Output/17.2.png)
 
 ---
@@ -508,7 +525,13 @@ avg_cal[(avg_cal["Sales_segment"] == "High_Revenue") & (avg_cal["profit_segment"
 
 ``` python
 
+top_3_unit = rice.copy()
 
+top_3_unit.groupby(["Location", "Product Name"])["Unit Sold"].sum().groupby(level= 0).nlargest(3)
+
+top_3_sec_app = top_3_unit.groupby(["Location", "Product Name"])["Unit Sold"].sum().reset_index()
+
+top_3_sec_app.sort_values(by= ["Location", "Unit Sold"], ascending= False).groupby("Location").head(3)
 
 ```
 
@@ -524,7 +547,7 @@ avg_cal[(avg_cal["Sales_segment"] == "High_Revenue") & (avg_cal["profit_segment"
 
 ``` python
 
-
+rice.groupby("Product Name")["Profit"].sum().sort_values(ascending= False).tail(10)
 
 ```
 
@@ -540,7 +563,7 @@ avg_cal[(avg_cal["Sales_segment"] == "High_Revenue") & (avg_cal["profit_segment"
 
 ``` python
 
-
+rice.groupby("Location")["Sales"].sum().sort_values(ascending= True).head(5)
 
 ```
 
@@ -556,7 +579,9 @@ avg_cal[(avg_cal["Sales_segment"] == "High_Revenue") & (avg_cal["profit_segment"
 
 ``` python
 
+top_3_brand = rice.copy()
 
+rice.groupby(["Location", "Rice Brand"])["Sales"].sum().groupby(level= 0).nlargest(3)
 
 ```
 
@@ -572,7 +597,17 @@ avg_cal[(avg_cal["Sales_segment"] == "High_Revenue") & (avg_cal["profit_segment"
 
 ``` python
 
+rev_pro = rice.copy()
 
+avg_cal_1 = rev_pro.groupby("Product Name")[["Sales", "Profit"]].sum()
+
+avg_cal_1["Sales_Avg"] = np.where(avg_cal_1["Sales"] > avg_cal_1["Sales"].mean(), "top_Performance", "Not")
+
+avg_cal_1["Profit_Avg"] = np.where(avg_cal_1["Profit"] > avg_cal_1["Profit"].mean(), "top_Performance", "Not")
+
+value_sort = avg_cal_1[ (avg_cal_1["Sales_Avg"] == "top_Performance") & (avg_cal_1["Profit_Avg"] == "top_Performance")]
+
+value_sort.sort_values(by= ["Sales", "Profit"],ascending= False)
 
 ```
 
