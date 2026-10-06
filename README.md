@@ -161,6 +161,20 @@ brand_calculation
 
 #### *Calculate the average revenue generated per product across the complete dataset.*
 
+``` python
+
+product_average = rice.copy()
+product_average["Total_Revenue"] = product_average["Per Unit Price (INR)"] * product_average["Unit Sold"]
+product_average.groupby("Product Name")["Total_Revenue"].mean().sort_values(ascending= False)
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/6.png)
+
+---
+
 ### <b> Q7 </b>
 
 #### *Which locations have above-average revenue but below-average gross margin?*
