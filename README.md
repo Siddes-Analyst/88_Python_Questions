@@ -627,7 +627,17 @@ value_sort.sort_values(by= ["Sales", "Profit"],ascending= False)
 
 ``` python
 
+mom_com = rice.copy()
 
+mom_com["Month_name"] = mom_com["Date"].dt.month_name()
+
+month_cal = mom_com.groupby(["Year", "Month_name", "Month"])[["Sales"]].sum()
+
+month_cal.sort_values(by=["Year", "Month"], inplace=True)
+
+month_cal["Month_shift"] = month_cal["Sales"].shift(1)
+
+month_cal["MOM"] = ((month_cal["Sales"] - month_cal["Month_shift"]) / month_cal["Month_shift"]) * 100
 
 ```
 
@@ -643,7 +653,23 @@ value_sort.sort_values(by= ["Sales", "Profit"],ascending= False)
 
 ``` python
 
+sig_dec = rice.copy()
 
+sig_dec["Month Name"] = sig_dec["Date"].dt.month_name()
+
+val_group = sig_dec.groupby(["Location", "Year", "Month Name", "Month"])["Sales"].sum()
+
+val_frame = pd.DataFrame(val_group)
+
+val_frame = val_frame.sort_values(by=["Location", "Year", "Month"])
+
+val_frame["Previous Month"] = val_frame.groupby("Location")["Sales"].shift(1)
+
+val_frame["pre_mon_Diff"] = val_frame["Sales"] - val_frame["Previous Month"]
+
+val_frame["pre_mon_segment"] = val_frame["pre_mon_Diff"].apply(lambda x : "significant declines" if x < -50000 else "Not")
+
+val_frame[val_frame["pre_mon_segment"] == "significant declines"]
 
 ```
 
@@ -659,7 +685,17 @@ value_sort.sort_values(by= ["Sales", "Profit"],ascending= False)
 
 ``` python
 
+yoy_frame = rice.copy()
 
+yoy_cal = pd.DataFrame(yoy_frame.groupby(["Product Category", "Year"])["Sales"].sum())
+
+yoy_cal["pre_year_com"] = yoy_cal.groupby("Product Category")["Sales"].shift(1)
+
+yoy_cal["pre_year_diff"] = ((yoy_cal["Sales"] - yoy_cal["pre_year_com"]) / yoy_cal["pre_year_com"]) * 100
+
+yoy_cal["YOY"] = yoy_cal["pre_year_diff"].map(lambda x : f"{x :.2f} %")
+
+yoy_cal
 
 ```
 
@@ -675,7 +711,19 @@ value_sort.sort_values(by= ["Sales", "Profit"],ascending= False)
 
 ``` python
 
+pro_cat_dec = rice.copy()
 
+pro_cat_dec["Month_name"] = pro_cat_dec["Date"].dt.month_name()
+
+pro_frame = pd.DataFrame(pro_cat_dec.groupby(["Product Category", "Year", "Month_name", "Month"])["Unit Sold"].sum())
+
+pro_cal = pro_frame.sort_values(by=["Product Category", "Year", "Month"])
+
+pro_cal["Pre_Month"] = pro_cal.groupby("Product Category")["Unit Sold"].shift(1)
+
+pro_cal["month_diff"] = pro_cal["Unit Sold"] - pro_cal["Pre_Month"]
+
+pro_cal[pro_cal["month_diff"] < 0]
 
 ```
 
@@ -691,7 +739,21 @@ value_sort.sort_values(by= ["Sales", "Profit"],ascending= False)
 
 ``` python
 
+two_con = rice.copy()
 
+two_con["month_name"] = two_con["Date"].dt.month_name()
+
+two_con_frame = pd.DataFrame(two_con.groupby(["Product Name", "Year", "month_name", "Month"])["Sales"].sum())
+
+two_con_gro = two_con_frame.sort_values(by=["Product Name", "Year", "Month"])
+
+two_con_gro["pre_month"] = two_con_gro.groupby("Product Name")["Sales"].shift(1)
+
+two_con_gro["difference"] = two_con_gro["Sales"] - two_con_gro["pre_month"]
+
+two_con_gro["Diff_shift"] = two_con_gro.groupby("Product Name")["difference"].shift(1)
+
+two_con_gro[(two_con_gro["difference"] < 0) & (two_con_gro["Diff_shift"] < 0)]
 
 ```
 
@@ -707,7 +769,19 @@ value_sort.sort_values(by= ["Sales", "Profit"],ascending= False)
 
 ``` python
 
+con_imp = rice.copy()
 
+con_imp["Month_name"] = con_imp["Date"].dt.month_name()
+
+con_imp_frame = pd.DataFrame(con_imp.groupby(["Location", "Year"])["Sales"].sum())
+
+con_imp_frame["Pre_Year"] = con_imp_frame.groupby("Location")["Sales"].shift(1)
+
+con_imp_frame["Difference"] = con_imp_frame["Sales"] - con_imp_frame["Pre_Year"]
+
+con_imp_frame["shift_Diff"] = con_imp_frame.groupby("Location")["Difference"].shift(1)
+
+con_imp_frame[(con_imp_frame["Difference"] > 0) & (con_imp_frame["shift_Diff"] > 0)]
 
 ```
 
@@ -723,7 +797,17 @@ value_sort.sort_values(by= ["Sales", "Profit"],ascending= False)
 
 ``` python
 
+first_last = rice.copy()
 
+fir_las_frame = pd.DataFrame(first_last.groupby(["Product Category", "Year"])["Sales"].sum())
+
+fir_las_com = fir_las_frame.sort_values(by=["Product Category", "Year"], ascending=True)
+
+fir_las_com["shift"] = fir_las_com.groupby("Product Category")["Sales"].shift(4)
+
+fir_las_com["Diff"] = fir_las_com["Sales"] - fir_las_com["shift"]
+
+fir_las_com.sort_values(by="Diff", ascending=False).head(1)
 
 ```
 
@@ -739,7 +823,23 @@ value_sort.sort_values(by= ["Sales", "Profit"],ascending= False)
 
 ``` python
 
+inc_dec = rice.copy()
 
+inc_dec["Month name"] = inc_dec["Date"].dt.month_name()
+
+inc_dec_frame = pd.DataFrame(inc_dec.groupby(["Product Name", "Year", "Month name", "Month"])[["Sales", "Unit Sold"]].sum())
+
+inc_dec_frame = inc_dec_frame.sort_values(by=["Product Name", "Year", "Month"])
+
+inc_dec_frame["Pre_mon_Sales"] = inc_dec_frame.groupby("Product Name")["Sales"].shift(1)
+
+inc_dec_frame["sales_diff"] = inc_dec_frame["Sales"] - inc_dec_frame["Pre_mon_Sales"]
+
+inc_dec_frame["Pre_mon_unit"] = inc_dec_frame.groupby("Product Name")["Unit Sold"].shift(1)
+
+inc_dec_frame["unit_diff"] = inc_dec_frame["Unit Sold"] - inc_dec_frame["Pre_mon_unit"]
+
+inc_dec_frame[(inc_dec_frame["unit_diff"] < 0) & (inc_dec_frame["sales_diff"] > 0)]
 
 ```
 
