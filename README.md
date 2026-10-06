@@ -179,6 +179,61 @@ product_average.groupby("Product Name")["Total_Revenue"].mean().sort_values(asce
 
 #### *Which locations have above-average revenue but below-average gross margin?*
 
+``` python
+
+avg_margin_cal = rice.copy()
+
+avg_margin_cal["Revenue"] = avg_margin_cal["Per Unit Price (INR)"] * avg_margin_cal["Unit Sold"]
+
+avg_margin_cal.head(3)
+
+location_avg = avg_margin_cal.groupby("Location")["Revenue"].mean()
+
+avg_calculation = pd.DataFrame(location_avg)
+
+avg_calculation["Average"] = avg_calculation["Revenue"].mean()
+
+avg_calculation["Avg_segment"] = avg_calculation["Revenue"].apply(
+                                lambda x : "Above_Average" if x > 723.212855 else "Below_Average")
+
+avg_calculation.sort_values(by="Avg_segment", inplace=True)
+
+avg_calculation
+
+location_margin = avg_margin_cal[["Location", "Per Unit Price (INR)", "Purchase Cost (INR)", "Unit Sold"]]
+
+location_margin["Gross_Margin"] = (
+    (location_margin["Per Unit Price (INR)"] * location_margin["Unit Sold"])
+    - (location_margin["Purchase Cost (INR)"] * location_margin["Unit Sold"])
+)
+
+margin = location_margin.groupby("Location")["Gross_Margin"].mean()
+
+margin_calculation = pd.DataFrame(margin)
+
+margin_calculation["Margin_Average"] = margin_calculation["Gross_Margin"].mean()
+
+margin_calculation["Margin_segment"] = margin_calculation["Gross_Margin"].apply(
+                                                    lambda x : "Above_Average" if x > 126.444228 else "Below_Average")
+
+margin_calculation.sort_values(by="Margin_segment", inplace=True)
+
+margin_calculation
+
+location_segment = pd.merge(avg_calculation, margin_calculation, on="Location", how="outer")
+
+location_segment.sort_values(by="Avg_segment")
+
+location_segment[(location_segment["Avg_segment"] == "Above_Average") & (location_segment["Margin_segment"] == "Below_Average")]
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/7.png)
+
+---
+
 ### <b> Q8 </b>
 
 #### *For each package size, calculate revenue, units sold, gross profit, and average selling price.*
