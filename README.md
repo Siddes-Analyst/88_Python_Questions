@@ -1061,7 +1061,15 @@ five_frame
 
 ```python
 
+rolling_3 = rice.copy()
 
+roll_frame = pd.DataFrame(rolling_3.groupby(["Year", "Month_Name", "Month"])["Sales"].sum())
+
+roll_frame = roll_frame.sort_values(by=["Year", "Month"])
+
+roll_frame["3_mon_roll"] = roll_frame["Sales"].rolling(3).mean()
+
+pd.set_option("display.float_format", "{:,.0f}".format)
 
 ```
 
@@ -1077,7 +1085,23 @@ five_frame
 
 ```python
 
+six_mon_avg = rice.copy()
 
+six_frame = six_mon_avg.groupby(["Product Category", "Year", "Month", "Month_Name"])["Unit Sold"].sum()
+
+six_frame = six_frame.reset_index()
+
+six_frame = six_frame.sort_values(by=["Product Category", "Year", "Month"])
+
+six_frame["roll_avg"] = six_frame.groupby("Product Category")["Unit Sold"].transform(lambda x : x.rolling(6).mean())
+
+six_frame["diff"] = six_frame.groupby("Product Category")["roll_avg"].shift(1)
+
+six_frame["diff_cal"] = six_frame["roll_avg"] - six_frame["diff"]
+
+six_frame["diff_cal_shift"] = six_frame.groupby("Product Category")["diff_cal"].shift(1)
+
+sus_week = six_frame[(six_frame["diff_cal"] < 0) & (six_frame["diff_cal_shift"] < 0)]
 
 ```
 
@@ -1097,7 +1121,31 @@ five_frame
 
 ```python
 
+loc_avg = rice.copy()
 
+loc_frame = pd.DataFrame(loc_avg.groupby(["Location", "Year", "Month", "Month_Name"])["Sales"].sum())
+
+loc_frame = loc_frame.sort_values(by=["Location", "Year", "Month"])
+
+loc_frame["rolling_3"] = loc_frame.groupby("Location")["Sales"].transform(lambda x : x.rolling(3).mean().round())
+
+loc_frame["shift_1"] = loc_frame.groupby("Location")["rolling_3"].shift(1)
+
+loc_frame["diff"] = ((loc_frame["rolling_3"] - loc_frame["shift_1"]) / loc_frame["shift_1"]) * 100
+
+loc_avg_total = loc_frame.groupby("Location")["diff"].mean()
+
+loc_avg_total = loc_avg_total.reset_index()
+
+loc_frame = loc_frame.reset_index()
+
+loc_frame["loc_overall_avg"] = loc_frame["Location"].map(loc_avg_total.set_index("Location")["diff"])
+
+result_cal = loc_frame[(loc_frame["Year"] == 2024) & (loc_frame["Month"] >= 10)]
+
+result_cal["avg_segment"] = result_cal.apply(
+    lambda row : "High_Performance" if row["diff"] > row["loc_overall_avg"] else "Low_Performance", axis=1
+)
 
 ```
 
@@ -1113,7 +1161,21 @@ five_frame
 
 ```python
 
+pro_3 = rice.copy()
 
+pro_frame = pd.DataFrame(pro_3.groupby(["Product Category", "Year", "Month", "Month_Name"])["Profit"].sum())
+
+pro_frame = pro_frame.sort_values(by=["Product Category", "Year", "Month"])
+
+pro_frame["roll_3"] = pro_frame.groupby("Product Category")["Profit"].transform(lambda x : x.rolling(3).mean().round())
+
+year_avg = pd.DataFrame(pro_frame.groupby(["Product Category", "Year"])["roll_3"].mean().round())
+
+year_avg["pro_shift"] = year_avg.groupby("Product Category")["roll_3"].shift(1)
+
+year_avg["diff"] = year_avg["roll_3"] - year_avg["pro_shift"]
+
+year_avg
 
 ```
 
@@ -1129,7 +1191,29 @@ five_frame
 
 ```python
 
+long_term = rice.copy()
 
+long_Frame = pd.DataFrame(long_term.groupby(["Product Name", "Year", "Month", "Month_Name"])["Sales"].sum())
+
+long_Frame = long_Frame.sort_values(by=["Product Name", "Year", "Month"])
+
+long_Frame["roll_avg"] = long_Frame.groupby("Product Name")["Sales"].transform(lambda x : x.rolling(3).mean().round())
+
+total_avg = long_Frame.groupby("Product Name")["roll_avg"].mean().round()
+
+total_avg = total_avg.reset_index()
+
+long_Frame = long_Frame.reset_index()
+
+long_Frame["pro_avg"] = long_Frame["Product Name"].map(total_avg.set_index("Product Name")["roll_avg"])
+
+value_filter = long_Frame[(long_Frame["Year"] == 2024) & (long_Frame["Month"].isin([12]))].copy()
+
+value_filter["growth"] = (((value_filter["roll_avg"] - value_filter["pro_avg"]) / value_filter["pro_avg"]) * 100).round()
+
+positive_growth = value_filter[value_filter["growth"] >= 10]
+
+positive_growth
 
 ```
 
