@@ -42,6 +42,8 @@ final_calculation
 
 ![](Git_hub_Output/1.png)
 
+---
+
 ### <b> Q2 </b>
 
 #### *Which locations generated the highest total revenue during the five-year period?*
