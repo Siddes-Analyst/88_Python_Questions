@@ -457,33 +457,130 @@ avg_cal[(avg_cal["Sales_segment"] == "High_Revenue") & (avg_cal["profit_segment"
 
 #### *Identify the top 10 products by total revenue.*
 
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/15.png)
+
+---
+
 ### <b> Q16 </b>
 
 #### *Identify the top five brands by total gross profit.*
+
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/16.png)
+
+---
 
 ### <b> Q17 </b>
 
 #### *For every product category, identify the top three products by revenue.*
 
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/17.1.png)
+![](Git_hub_Output/17.2.png)
+
+---
+
 ### <b> Q18 </b>
 
 #### *For every location, identify the top three products by units sold.*
+
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/18.png)
+
+---
 
 ### <b> Q19 </b>
 
 #### *Identify the bottom 10 products by gross profit.*
 
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/19.png)
+
+---
+
 ### <b> Q20 </b>
 
 #### *Identify the five locations with the lowest revenue.*
+
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/20.png)
+
+---
 
 ### <b> Q21 </b>
 
 #### *Identify the top three brands within every location.*
 
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/21.png)
+
+---
+
 ### <b> Q22 </b>
 
 #### *Which products rank among the top performers based on both revenue and gross profit?*
+
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/22.png)
+
+---
 
 ## <b> 📈 4. Period-over-Period Comparison
 
