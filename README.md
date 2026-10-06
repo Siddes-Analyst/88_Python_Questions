@@ -104,7 +104,7 @@ pro_calculation
 
 ## 📷 Output
 
-![](Git_hub_Output/1.png)
+![](Git_hub_Output/3.png)
 
 ---
 
