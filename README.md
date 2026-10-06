@@ -40,7 +40,7 @@ final_calculation
 
 ## 📷 Output
 
-![](Screenshots/01.png)
+![](Git_hub_Output/1.png)
 
 ### <b> Q2 </b>
 
