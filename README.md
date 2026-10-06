@@ -36,8 +36,6 @@ final_calculation = pd.Series(
 
 final_calculation
 
-```
-
 ## 📷 Output
 
 ![](Git_hub_Output/1.png)
@@ -47,6 +45,22 @@ final_calculation
 ### <b> Q2 </b>
 
 #### *Which locations generated the highest total revenue during the five-year period?*
+
+``` python
+
+top_revenue = rice
+
+column_seperation = top_revenue[["Year", "Location", "Unit Sold", "Per Unit Price (INR)"]]
+
+column_seperation["Total_Sales"] = column_seperation["Per Unit Price (INR)"] * column_seperation["Unit Sold"]
+
+store_finding = column_seperation.groupby(["Location"])["Total_Sales"].sum()
+
+store_finding.sort_values(inplace= True, ascending= False)
+
+store_finding.head(1)
+
+```
 
 ### <b> Q3 </b>
 
