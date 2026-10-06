@@ -227,6 +227,36 @@ margin_cal[(margin_cal["Revenue_Segment"] == "Above Average") & (margin_cal["Mar
 
 #### *For each package size, calculate revenue, units sold, gross profit, and average selling price.*
 
+``` python
+
+package_size = avg_margin_cal.copy()
+
+package_calculation = package_size.groupby("Product Quantity").agg({
+    "Revenue" : "sum",
+    "Unit Sold" : "sum",
+    "Profit" : "sum",
+})
+
+package_calculation.rename(columns=
+    {
+        "Revenue" : "Total Revenue",
+        "Unit Sold" : "Unit Sold",
+        "Profi" : "Total Profit"
+    }, inplace= True
+)
+
+package_calculation["average selling price"] = (package_calculation["Total Revenue"] / package_calculation["Unit Sold"]).round()
+
+package_calculation
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/8.png)
+
+---
+
 ## <b> 📈 2. Conditional & Category-Based Analysis
 
 ### <b> Q9 </b>
