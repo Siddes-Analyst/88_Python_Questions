@@ -1059,9 +1059,33 @@ five_frame
 
 #### *Calculate the three-month rolling average of total revenue and use it to understand the underlying sales trend.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/38.png)
+
+---
+
 ### <b> Q39 </b>
 
 #### *Calculate a six-month rolling average of units sold for each product category.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/39.png)
+
+---
 
 #### *Which categories show sustained weakness?*
 
@@ -1071,13 +1095,49 @@ five_frame
 
 #### *Identify locations whose recent performance is below their normal trend.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/40.png)
+
+---
+
 ### <b> Q41 </b>
 
 #### *Analyse the rolling gross profit of the major product categories and identify categories whose profitability is weakening.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/41.png)
+
+---
+
 ### <b> Q42 </b>
 
 #### *Identify products whose recent three-month performance is significantly different from their longer-term performance.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/42.png)
+
+---
 
 ## <b> 📈 7. First & Latest Event Analysis
 
