@@ -1,4 +1,4 @@
-### <b>Q1. Five-Year Performance Summary:</b>
+### <b> Q1. Five-Year Performance Summary:</b>
 
 #### *Management wants a five-year performance summary. Calculate total revenue, total units sold, total purchase cost, total gross profit, and gross margin percentage.*
 
