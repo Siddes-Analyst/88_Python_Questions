@@ -855,29 +855,113 @@ inc_dec_frame[(inc_dec_frame["unit_diff"] < 0) & (inc_dec_frame["sales_diff"] > 
 
 #### *Calculate cumulative company revenue month by month from January 2020 to December 2024.*
 
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/31.png)
+
+---
+
 ### <b> Q32 </b>
 
 #### *Calculate cumulative gross profit for every location and compare long-term profitability.*
+
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/32.png)
+
+---
 
 ### <b> Q33 </b>
 
 #### *Which product categories show a sustained upward revenue trend over the five-year period?*
 
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/33.png)
+
+---
+
 ### <b> Q34 </b>
 
 #### *Which product categories show a sustained decline in units sold?*
+
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/34.png)
+
+---
 
 ### <b> Q35 </b>
 
 #### *Determine whether each brand's long-term revenue trend is growing, declining, or relatively stable.*
 
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/35.png)
+
+---
+
 ### <b> Q36 </b>
 
 #### *Identify products that have experienced a major long-term change in sales performance.*
 
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/36.png)
+
+---
+
 ### <b> Q37 </b>
 
 #### *Analyse how the revenue contribution of each product category changed from the beginning to the end of the five-year period.*
+
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/37.png)
+
+---
 
 ## <b> 📈 6. Rolling / Moving-Window Analysis
 
