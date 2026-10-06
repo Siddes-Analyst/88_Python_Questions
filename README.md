@@ -265,7 +265,31 @@ package_calculation
 
 ``` python
 
+hm1_profit = rice.copy()
 
+hm1_profit.head(2)
+
+pro_seperate = hm1_profit.groupby("Product Name")[["Sales", "Profit"]].sum()
+
+pro_seperate["Gross_margin"] = (pro_seperate["Profit"] / pro_seperate["Sales"]) * 100
+
+pro_seperate.sort_values(by=["Gross_margin"], ascending=False, inplace=True)
+
+def prof(par):
+    if par >= 17.6:
+        return "High Profitability"
+
+    elif par >= 17.4:
+        return "Medium Profitability"
+
+    else:
+        return "Low Profitability"
+
+pro_seperate["Profitability"] = pro_seperate["Gross_margin"].apply(prof)
+
+pro_seperate
+
+pro_seperate.groupby("Profitability")["Sales"].sum().sort_values(ascending=False)
 
 ```
 
