@@ -30,4 +30,4 @@ final_calculation = pd.Series(
 final_calculation
 
 ```
-![](https://github.com/Siddes-Analyst/88_Python_Questions/blob/main/Screenshot%202026-10-06%20115845.png)
+![](https://github.com/Siddes-Analyst/88_Python_Questions/blob/main/Screenshot%202026-10-06%20123549.png)
