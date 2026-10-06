@@ -143,6 +143,20 @@ month_result
 
 #### *Which brands generated the highest total units sold?*
 
+``` python
+
+brand = rice
+brand_calculation = brand.groupby("Rice Brand")["Unit Sold"].sum().sort_values(ascending= False)
+brand_calculation
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/5.png)
+
+---
+
 ### <b> Q6 </b>
 
 #### *Calculate the average revenue generated per product across the complete dataset.*
