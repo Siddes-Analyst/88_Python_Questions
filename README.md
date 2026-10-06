@@ -185,46 +185,35 @@ avg_margin_cal = rice.copy()
 
 avg_margin_cal["Revenue"] = avg_margin_cal["Per Unit Price (INR)"] * avg_margin_cal["Unit Sold"]
 
-avg_margin_cal.head(3)
+avg_margin_cal["Total_Purchase"] = avg_margin_cal["Purchase Cost (INR)"] * avg_margin_cal["Unit Sold"]
 
-location_avg = avg_margin_cal.groupby("Location")["Revenue"].mean()
+avg_margin_cal["Profit"] = avg_margin_cal["Revenue"] - avg_margin_cal["Total_Purchase"]
 
-avg_calculation = pd.DataFrame(location_avg)
+avg_margin_cal.head(2)
 
-avg_calculation["Average"] = avg_calculation["Revenue"].mean()
+avg_group = avg_margin_cal.groupby("Location")["Revenue"].sum()
 
-avg_calculation["Avg_segment"] = avg_calculation["Revenue"].apply(
-                                lambda x : "Above_Average" if x > 723.212855 else "Below_Average")
+avg_calculation = pd.DataFrame(avg_group)
 
-avg_calculation.sort_values(by="Avg_segment", inplace=True)
+avg_calculation["Revenue_Average"] = avg_calculation["Revenue"].mean()
 
-avg_calculation
+avg_calculation["Revenue_Segment"] = avg_calculation["Revenue"].map(lambda x : "Above Average" if x > 967658 else "Below Average")
 
-location_margin = avg_margin_cal[["Location", "Per Unit Price (INR)", "Purchase Cost (INR)", "Unit Sold"]]
+margin_group = avg_margin_cal.groupby("Location")["Profit"].sum()
 
-location_margin["Gross_Margin"] = (
-    (location_margin["Per Unit Price (INR)"] * location_margin["Unit Sold"])
-    - (location_margin["Purchase Cost (INR)"] * location_margin["Unit Sold"])
-)
+mar_calculation = pd.DataFrame(margin_group)
 
-margin = location_margin.groupby("Location")["Gross_Margin"].mean()
+margin_cal = pd.merge(avg_calculation, mar_calculation, on="Location")
 
-margin_calculation = pd.DataFrame(margin)
+margin_cal["Margin"] = (margin_cal["Profit"] / margin_cal["Revenue"]) * 100
 
-margin_calculation["Margin_Average"] = margin_calculation["Gross_Margin"].mean()
+margin_cal["Margin_Average"] = margin_cal["Margin"].mean()
 
-margin_calculation["Margin_segment"] = margin_calculation["Gross_Margin"].apply(
-                                                    lambda x : "Above_Average" if x > 126.444228 else "Below_Average")
+margin_cal["Margin_Segment"] = margin_cal["Margin"].apply(lambda x : "Above_Margin" if x > 17.483498 else "Below_Margin")
 
-margin_calculation.sort_values(by="Margin_segment", inplace=True)
+margin_cal
 
-margin_calculation
-
-location_segment = pd.merge(avg_calculation, margin_calculation, on="Location", how="outer")
-
-location_segment.sort_values(by="Avg_segment")
-
-location_segment[(location_segment["Avg_segment"] == "Above_Average") & (location_segment["Margin_segment"] == "Below_Average")]
+margin_cal[(margin_cal["Revenue_Segment"] == "Above Average") & (margin_cal["Margin_Segment"] == "Below_Margin")]
 
 ```
 
