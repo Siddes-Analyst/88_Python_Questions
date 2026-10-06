@@ -1,3 +1,5 @@
+## <b> 📈 1. KPI & Aggregation Analysis
+
 ### <b> Q1 </b>
 
 #### *Management wants a five-year performance summary. Calculate total revenue, total units sold, total purchase cost, total gross profit, and gross margin percentage.*
