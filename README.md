@@ -625,33 +625,129 @@ value_sort.sort_values(by= ["Sales", "Profit"],ascending= False)
 
 #### *Identify the months with the largest increase and largest decline.*
 
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/23.png)
+
+---
+
 ### <b> Q24 </b>
 
 #### *Compare each location's monthly revenue with its previous month and identify locations experiencing significant declines.*
+
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/24.png)
+
+---
 
 ### <b> Q25 </b>
 
 #### *Calculate year-over-year revenue growth for each product category.*
 
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/25.png)
+
+---
+
 ### <b> Q26 </b>
 
 #### *Identify product categories whose units sold declined compared with the previous month.*
+
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/26.png)
+
+---
 
 ### <b> Q27 </b>
 
 #### *Identify products whose revenue declined for at least two consecutive months.*
 
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/27.png)
+
+---
+
 ### <b> Q28 </b>
 
 #### *Identify locations that show a consistent improvement in revenue over multiple periods.*
+
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/28.png)
+
+---
 
 ### <b> Q29 </b>
 
 #### *Compare the first year and the final year of the dataset. Which categories improved the most?*
 
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/29.png)
+
+---
+
 ### <b> Q30 </b>
 
 #### *Identify products whose revenue increased while their units sold decreased between two comparable periods. Investigate what may have caused this.*
+
+``` python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/30.png)
+
+---
 
 ## <b> 📈 5. Trend & Cumulative Analysis
 
