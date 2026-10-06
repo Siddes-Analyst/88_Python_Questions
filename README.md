@@ -66,13 +66,47 @@ store_finding.head(1)
 
 ## 📷 Output
 
-![](Git_hub_Output/1.png)
+![](Git_hub_Output/2.png)
 
 ---
 
 ### <b> Q3 </b>
 
 #### *Compare the seven product categories based on revenue, units sold, gross profit, and gross margin.*
+
+``` python
+
+product_category = rice
+
+product_category["Product Category"].unique()
+
+product_category["Total_Sales"] = product_category["Per Unit Price (INR)"] * product_category["Unit Sold"]
+
+product_category["Total_pur"] = product_category["Purchase Cost (INR)"] * product_category["Unit Sold"]
+
+product_category["Profit"] = product_category["Total_Sales"] - product_category["Total_pur"]
+
+pro_calculation = product_category.groupby("Product Category").agg({
+    "Total_Sales" : "sum",
+    "Unit Sold" : "sum",
+    "Profit" : "sum",
+})
+
+pro_calculation.sort_values(by=["Total_Sales", "Profit"], inplace=True, ascending=False)
+
+pro_calculation["Gross_Margin"] = (pro_calculation["Profit"] / pro_calculation["Total_Sales"]) * 100
+
+pro_calculation["Gross_Margin"] = pro_calculation["Gross_Margin"].map(lambda x: f"{x :.2f} %")
+
+pro_calculation
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/1.png)
+
+---
 
 ### <b> Q4 </b>
 
