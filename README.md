@@ -305,7 +305,25 @@ pro_seperate.groupby("Profitability")["Sales"].sum().sort_values(ascending=False
 
 ``` python
 
+high_Sales = rice.copy()
 
+average_cal = high_Sales.groupby("Product Name")[["Sales", "Unit Sold", "Profit"]].sum()
+
+pro_average = average_cal["Sales"].mean().round()
+
+pro_average
+
+average_cal["Product_avg"] = np.where(average_cal["Sales"] > pro_average, "High_Sales", "Low_Sales")
+
+average_cal.sort_values(by="Product_avg", inplace=True)
+
+average_cal["Gross_Margin"] = (average_cal["Profit"] / average_cal["Sales"]) * 100
+
+average_cal["Avg_Margin"] = average_cal["Gross_Margin"].mean()
+
+average_cal["Margin_Segment"] = average_cal["Gross_Margin"].apply(lambda x : "Above Avg" if x > 17.483551 else "Below Avg")
+
+average_cal[(average_cal["Product_avg"] == "High_Sales") & (average_cal["Margin_Segment"] == "Below Avg")]
 
 ```
 
@@ -321,7 +339,19 @@ pro_seperate.groupby("Profitability")["Sales"].sum().sort_values(ascending=False
 
 ``` python
 
+location_avg_unit = rice.copy()
 
+loc_sales_avg = location_avg_unit.groupby("Location")[["Sales", "Unit Sold"]].sum()
+
+loc_sales_avg["Sales_Avg"] = loc_sales_avg["Sales"].mean()
+
+loc_sales_avg["Sales_segment"] = loc_sales_avg["Sales"].apply(lambda x : "Above Avg" if x > 9676588.0 else "Below Avg")
+
+loc_sales_avg["Unit_sold_Avg"] = loc_sales_avg["Unit Sold"].mean()
+
+loc_sales_avg["Sold_segment"] = loc_sales_avg["Unit Sold"].apply(lambda x : "Above Avg" if x > 29368.764706 else "Below Avg")
+
+loc_sales_avg[(loc_sales_avg["Sales_segment"] == "Above Avg") & (loc_sales_avg["Sold_segment"] == "Below Avg")]
 
 ```
 
@@ -337,7 +367,19 @@ pro_seperate.groupby("Profitability")["Sales"].sum().sort_values(ascending=False
 
 ``` python
 
+hike_20 = rice
 
+get_unique = hike_20[["Product Name", "Product Quantity", "Purchase Cost", "Unit Price"]]
+
+get_unique = get_unique.drop_duplicates(subset=["Product Name", "Product Quantity"])
+
+get_unique["twenty_cal"] = get_unique["Purchase Cost"] + ((get_unique["Purchase Cost"] / 100) * 20)
+
+get_unique["twenty_logics"] = get_unique["Unit Price"] - get_unique["twenty_cal"]
+
+get_unique["twenty_segment"] = get_unique["twenty_logics"].apply(lambda x : "Higher" if x >= 0 else "Lower")
+
+get_unique[get_unique["twenty_segment"] == "Higher"]
 
 ```
 
@@ -357,7 +399,19 @@ pro_seperate.groupby("Profitability")["Sales"].sum().sort_values(ascending=False
 
 ``` python
 
+both_con = rice.copy()
 
+unit_pro = both_con.groupby("Product Name")[["Unit Sold", "Profit", "Sales"]].sum()
+
+unit_pro["Unit_avg"] = unit_pro["Unit Sold"].mean().round()
+
+unit_pro["Unit_segment"] = unit_pro["Unit Sold"].apply(lambda x : "Above Avg" if x > unit_pro["Unit Sold"].mean() else "Below Avg")
+
+unit_pro["profi_avg"] = unit_pro["Profit"].mean().round()
+
+unit_pro["Profit_segment"] = unit_pro["Profit"].apply(lambda x : "Above Avg" if x > unit_pro["Profit"].mean() else "Below Avg")
+
+unit_pro[(unit_pro["Unit_segment"] == "Above Avg") & (unit_pro["Profit_segment"] == "Above Avg")]
 
 ```
 
@@ -373,7 +427,21 @@ pro_seperate.groupby("Profitability")["Sales"].sum().sort_values(ascending=False
 
 ``` python
 
+high_week = rice
 
+avg_cal = high_week.groupby("Rice Brand")[["Sales", "Profit"]].sum()
+
+avg_cal["Sales"].mean()
+
+avg_cal["Sales_segment"] = np.where(avg_cal["Sales"] > avg_cal["Sales"].mean(), "High_Revenue", "Low_Revenue")
+
+avg_cal["Gross_margin"] = (avg_cal["Profit"] / avg_cal["Sales"]) * 100
+
+avg_cal["Gross_margin"].mean()
+
+avg_cal["profit_segment"] = np.where(avg_cal["Gross_margin"] > avg_cal["Gross_margin"].mean(), "High_Profit", "Week_Profit")
+
+avg_cal[(avg_cal["Sales_segment"] == "High_Revenue") & (avg_cal["profit_segment"] == "Week_Profit")]
 
 ```
 
