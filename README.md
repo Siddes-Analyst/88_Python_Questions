@@ -36,6 +36,8 @@ final_calculation = pd.Series(
 
 final_calculation
 
+```
+
 ## 📷 Output
 
 ![](Git_hub_Output/1.png)
@@ -61,6 +63,12 @@ store_finding.sort_values(inplace= True, ascending= False)
 store_finding.head(1)
 
 ```
+
+## 📷 Output
+
+![](Git_hub_Output/1.png)
+
+---
 
 ### <b> Q3 </b>
 
