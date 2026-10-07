@@ -1704,7 +1704,10 @@ loc[(loc["Product Name"] == "DMart Premia Poha Basmati") & (loc["Product Quantit
 
 ## 📷 Output
 
-![](Git_hub_Output/59.png)
+![](Git_hub_Output/59.1.png)
+![](Git_hub_Output/59.2.png)
+![](Git_hub_Output/59.3.png)
+![](Git_hub_Output/59.4.png)
 
 ---
 
