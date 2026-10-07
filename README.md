@@ -2062,7 +2062,9 @@ final_customer = final_customer.merge(days_90, on="Customer_ID", how="left")
 
 ## 📷 Output
 
-![](Git_hub_Output/70.png)
+![](Git_hub_Output/70.1.png)
+![](Git_hub_Output/70.2.png)
+![](Git_hub_Output/70.3.png)
 
 ---
 
@@ -2081,12 +2083,6 @@ repeated_cus = cus_count[cus_count["cus_count"] > 1]
 ((repeated_cus["Customer_ID"].count() / cus_count["Customer_ID"].nunique()) * 100).round(2)
 
 ```
-
-## 📷 Output
-
-![](Git_hub_Output/71.png)
-
----
 
 ### <b> Q72 </b>
 
