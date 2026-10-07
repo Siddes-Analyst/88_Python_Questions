@@ -5,21 +5,23 @@
 This project uses a D-Mart Rice Sales dataset covering 5 years of sales data across Year, Month, Date, Location, Product Name, Product ID, Product Category, Product Quantity, Rice Brand, Unit Price, Purchase Cost, Unit Sold, Total Purchase, Sales, and Profit.
 
 I developed 88 Python/Pandas analytical solutions across the following key areas:
-- 📅 Time Series Analysis
-- 👥 Customer Analysis
-- 📦 Product Analysis
-- 🏷️ Brand Analysis
-- 🏪 Location Analysis
-- 💰 Sales & Revenue Analysis
-- 📈 Growth Analysis
-- 💹 Profitability Analysis
-- 🎯 KPI Analysis
-- 🏆 Ranking Analysis
-- 🔄 Trend Analysis
-- 📊 Comparative Analysis
-- 🧩 Segmentation Analysis
-- 📌 Contribution Analysis
-- 🔍 Root Cause Analysis
+
+- 🎯 1. KPI & Aggregation Analysis Analysis
+- 📊 2. Conditional & Category-Based Analysis
+- 👥 3. Top / Bottom Performer Analysis
+- 📅 4. Period-over-Period Comparison
+- 🏆 5. Trend & Cumulative Analysis
+- 📈 6. Rolling / Moving-Window Analysis
+- 🔄 7. First & Latest Event Analysis
+- 🏪 8. Previous & Next Event Analysis
+- 📦 9. Duplicate & Record-Quality Analysis
+- 🧩 10. Segmentation & Classification Analysis
+- 🏷️ 11. Missing, Inactive & Gap Analysis
+- 💰 12. Cohort & Retention Analysis
+- 💹 13. Relationship & Cross-Entity Analysis
+- 📌 14. Contribution & Share Analysis
+- 🔍 15. Root-Cause & Drill-Down Analysis
+  
 Each question includes the problem statement, Python/Pandas code, and the corresponding output for practical data-analysis practice.
   
 ---
