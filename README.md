@@ -26,7 +26,7 @@ Each question includes the problem statement, Python/Pandas code, and the corres
   
 ---
 
-## <b> 📈 1. KPI & Aggregation Analysis
+## <b> 🎯 1. KPI & Aggregation Analysis
 
 ### <b> Q1 </b>
 
@@ -285,7 +285,7 @@ package_calculation
 
 ---
 
-## <b> 📈 2. Conditional & Category-Based Analysis
+## <b> 📊 2. Conditional & Category-Based Analysis
 
 ### <b> Q9 </b>
 
@@ -479,7 +479,7 @@ avg_cal[(avg_cal["Sales_segment"] == "High_Revenue") & (avg_cal["profit_segment"
 
 ---
 
-## <b> 📈 3. Top / Bottom Performer Analysis
+## <b> 👥 3. Top / Bottom Performer Analysis
 
 ### <b> Q15 </b>
 
@@ -645,7 +645,7 @@ value_sort.sort_values(by= ["Sales", "Profit"],ascending= False)
 
 ---
 
-## <b> 📈 4. Period-over-Period Comparison
+## <b> 📅 4. Period-over-Period Comparison
 
 ### <b> Q23 </b>
 
@@ -877,7 +877,7 @@ inc_dec_frame[(inc_dec_frame["unit_diff"] < 0) & (inc_dec_frame["sales_diff"] > 
 
 ---
 
-## <b> 📈 5. Trend & Cumulative Analysis
+## <b> 🏆 5. Trend & Cumulative Analysis
 
 ### <b> Q31 </b>
 
@@ -1251,7 +1251,7 @@ positive_growth
 
 ---
 
-## <b> 📈 7. First & Latest Event Analysis
+## <b> 🔄 7. First & Latest Event Analysis
 
 ### <b> Q43 </b>
 
@@ -1404,7 +1404,7 @@ com_frame
 
 ---
 
-## <b> 📈 8. Previous & Next Event Analysis
+## <b> 🏪 8. Previous & Next Event Analysis
 
 ### <b> Q48 </b>
 
@@ -1559,7 +1559,7 @@ largest_positive
 
 ---
 
-## <b> 📈 9. Duplicate & Record-Quality Analysis
+## <b> 📦 9. Duplicate & Record-Quality Analysis
 
 ### <b> Q53 </b>
 
@@ -1674,7 +1674,7 @@ loc[(loc["Product Name"] == "DMart Premia Poha Basmati") & (loc["Product Quantit
 
 ---
 
-## <b> 📈 10. Segmentation & Classification Analysis
+## <b> 🧩 10. Segmentation & Classification Analysis
 
 ### <b> Q58 </b>
 
@@ -1837,7 +1837,7 @@ pack_frame.sort_values(by=["contribution"], ascending=False)
 
 ---
 
-## <b> 📈 11. Missing, Inactive & Gap Analysis
+## <b> 🏷️ 11. Missing, Inactive & Gap Analysis
 
 ### <b> Q63 </b>
 
@@ -1976,7 +1976,7 @@ category_frame[category_frame["Sales"] == 0]
 
 ---
 
-## <b> 📈 12. Cohort & Retention Analysis
+## <b> 💰 12. Cohort & Retention Analysis
 
 ### <b> Q68 </b>
 
@@ -2193,7 +2193,7 @@ month_group
 
 ---
 
-## <b> 📈 13. Relationship & Cross-Entity Analysis
+## <b> 💹 13. Relationship & Cross-Entity Analysis
 
 ### <b> Q74 </b>
 
@@ -2439,7 +2439,7 @@ pack_group
 
 ---
 
-## <b> 📈 14. Contribution & Share Analysis
+## <b> 📌 14. Contribution & Share Analysis
 
 ### <b> Q81 </b>
 
@@ -2621,7 +2621,7 @@ year_cal
 
 ---
 
-## <b> 📈 15. Root-Cause & Drill-Down Analysis
+## <b> 🔍 15. Root-Cause & Drill-Down Analysis
 
 ### <b> Q88 </b>
 
