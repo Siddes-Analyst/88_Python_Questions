@@ -1537,15 +1537,51 @@ largest_positive
 
 #### *Check whether the dataset contains exact duplicate records.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/53.png)
+
+---
+
 ### <b> Q54 </b>
 
 #### *Investigate whether multiple records exist for the same Date + Location + Product ID combination.*
 
 #### *Determine whether those duplicates are legitimate or potentially problematic.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/54.png)
+
+---
+
 ### <b> Q55 </b>
 
 #### *Check whether the same Product ID is associated with different product names, categories, brands, or package sizes.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/55.png)
+
+---
 
 ### <b> Q56 </b>
 
@@ -1553,17 +1589,53 @@ largest_positive
 
 #### *Determine whether this appears to be a legitimate business variation or a data-quality issue.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/56.png)
+
+---
+
 ### <b> Q57 </b>
 
 #### *Investigate whether the same product appears under inconsistent naming conventions.*
 
 #### *Explain how you would clean the data before analysis.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/57.png)
+
+---
+
 ## <b> 📈 10. Segmentation & Classification Analysis
 
 ### <b> Q58 </b>
 
 #### *Divide locations into High-, Medium-, and Low-revenue segments. Compare the characteristics of each group.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/58.png)
+
+---
 
 ### <b> Q59 </b>
 
@@ -1579,17 +1651,65 @@ largest_positive
 
 #### *Identify the products in each group.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/59.png)
+
+---
+
 ### <b> Q60 </b>
 
 #### *Segment brands according to their contribution to total revenue and identify the strategically important brands.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/60.png)
+
+---
 
 ### <b> Q61 </b>
 
 #### *Segment products based on their profitability and determine which segments deserve attention from management.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/61.png)
+
+---
+
 ### <b> Q62 </b>
 
 #### *Segment package sizes based on their sales performance and determine which size has the strongest business contribution.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/62.png)
+
+---
 
 ## <b> 📈 11. Missing, Inactive & Gap Analysis
 
@@ -1597,21 +1717,81 @@ largest_positive
 
 #### *Identify product-location combinations with zero sales in one or more months.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/63.png)
+
+---
+
 ### <b> Q64 </b>
 
 #### *Identify products that had sales previously but later experienced multiple consecutive zero-sales months.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/64.png)
+
+---
 
 ### <b> Q65 </b>
 
 #### *Find locations where particular categories became inactive for extended periods.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/65.png)
+
+---
+
 ### <b> Q66 </b>
 
 #### *Identify product-location combinations with irregular sales activity and determine where further investigation is needed.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/66.png)
+
+---
+
 ### <b> Q67 </b>
 
 #### *Identify months where one or more product categories had no recorded sales at a particular location.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/67.png)
+
+---
 
 ## <b> 📈 12. Cohort & Retention Analysis
 
@@ -1619,25 +1799,97 @@ largest_positive
 
 #### *Identify each customer's first purchase month and create customer cohorts based on that month.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/68.png)
+
+---
+
 ### <b> Q69 </b>
 
 #### *For customers acquired in each month, calculate how many returned and purchased again in the following month.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/69.png)
+
+---
 
 ### <b> Q70 </b>
 
 #### *Calculate 30-day, 60-day, and 90-day customer retention.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/70.png)
+
+---
+
 ### <b> Q71 </b>
 
 #### *Identify customers who made purchases in multiple months and calculate their repeat-purchase rate.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/71.png)
+
+---
 
 ### <b> Q72 </b>
 
 #### *Compare high-value repeat customers with one-time customers in terms of revenue contribution.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/72.png)
+
+---
+
 ### <b> Q73 </b>
 
 #### *Identify month-wise segments whose purchase frequency is increasing or declining over time.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/73.png)
+
+---
 
 ## <b> 📈 13. Relationship & Cross-Entity Analysis
 
@@ -1645,29 +1897,113 @@ largest_positive
 
 #### *Analyse the relationship between brand and location. Identify brands whose performance is concentrated in only a few locations.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/74.png)
+
+---
+
 ### <b> Q75 </b>
 
 #### *Analyse the relationship between category and package size. Identify the dominant package size for each category.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/75.png)
+
+---
 
 ### <b> Q76 </b>
 
 #### *Determine whether high-revenue locations also tend to have high gross margins.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/76.png)
+
+---
+
 ### <b> Q77 </b>
 
 #### *Determine whether the brands that sell the largest number of units are also the brands generating the largest revenue.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/77.png)
+
+---
 
 ### <b> Q78 </b>
 
 #### *Analyse the relationship between selling price and units sold. Determine whether higher-priced products generally sell less.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/78.png)
+
+---
+
 ### <b> Q79 </b>
 
 #### *Identify products that perform strongly in one location but poorly in another.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/79.png)
+
+---
+
 ### <b> Q80 </b>
 
 #### *Identify categories that are highly dependent on a particular brand or package size.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/80.png)
+
+---
 
 ## <b> 📈 14. Contribution & Share Analysis
 
@@ -1675,29 +2011,113 @@ largest_positive
 
 #### *Calculate each product category's percentage contribution to total company revenue.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/81.png)
+
+---
+
 ### <b> Q82 </b>
 
 #### *Calculate each brand's percentage contribution to total revenue and total units sold. Compare the two.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/82.png)
+
+---
 
 ### <b> Q83 </b>
 
 #### *Calculate every location's percentage contribution to company revenue.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/83.png)
+
+---
+
 ### <b> Q84 </b>
 
 #### *For each month, determine the revenue contribution percentage of every product category.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/84.png)
+
+---
 
 ### <b> Q85 </b>
 
 #### *Calculate what percentage of total revenue is generated by the top 10 products.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/85.png)
+
+---
+
 ### <b> Q86 </b>
 
 #### *Calculate the percentage contribution of each location to total gross profit.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/86.png)
+
+---
+
 ### <b> Q87 </b>
 
 #### *Identify categories whose share of total revenue is increasing over time.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/87.png)
+
+---
 
 ## <b> 📈 15. Root-Cause & Drill-Down Analysis
 
@@ -1710,5 +2130,17 @@ largest_positive
 #### *Investigate the issue from:*
 
 #### *Company → Location → Category → Brand → Product*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/88.png)
+
+---
 
 #### *Then identify the major contributors to the decline.*
