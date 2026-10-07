@@ -1956,7 +1956,19 @@ category_frame[category_frame["Sales"] == 0]
 
 ```python
 
+first_pur = cohort.copy()
 
+first_pur.head(2)
+
+first_id = first_pur.groupby(["Customer_ID", "Month", "Month Name", "Purchase_Date"])["Sales"].count().reset_index()
+
+first_id = first_id.sort_values(by=["Customer_ID", "Month", "Month Name", "Purchase_Date"])
+
+cohort_work = first_id.groupby(["Customer_ID"]).head(1)
+
+cohort_work
+
+cohort_work.groupby(["Month Name"])["Month"].count().reset_index().sort_values(by=["Month"], ascending=False)
 
 ```
 
@@ -1972,7 +1984,27 @@ category_frame[category_frame["Sales"] == 0]
 
 ```python
 
+acquired = cohort.copy()
 
+acquired["Month"] = acquired["Purchase_Date"].dt.month
+
+min_one = acquired.groupby(["Customer_ID", "Purchase_Date"]).min().reset_index()
+
+min_add = min_one.groupby("Customer_ID").head(1).copy()
+
+min_add["Month_add"] = min_add["Month"] + 1
+
+min_add = min_add.reset_index()
+
+min_add = min_add[["Customer_ID", "Month_add", "Month"]]
+
+both_table_merge = acquired.merge(min_add, on="Customer_ID", how="left")
+
+before_dup = both_table_merge[both_table_merge["Month_x"] == both_table_merge["Month_add"]].copy()
+
+before_dup.drop_duplicates(subset=["Customer_ID"], inplace=True)
+
+before_dup.groupby("Month_y")["Customer_ID"].count().reset_index()
 
 ```
 
@@ -1988,7 +2020,43 @@ category_frame[category_frame["Sales"] == 0]
 
 ```python
 
+cal_90 = cohort.copy()
 
+more_than_2 = cal_90.groupby("Customer_ID")["Purchase_Date"].count().reset_index().rename(columns={"Purchase_Date": "Cus_Count"})
+
+filtered_customer = more_than_2[more_than_2["Cus_Count"] >= 2]
+
+filtered_customer = filtered_customer.set_index("Customer_ID")
+
+filtered_customer = filtered_customer.index
+
+final_customer = cal_90[cal_90["Customer_ID"].isin(filtered_customer)]
+
+first_order = final_customer.groupby("Customer_ID")["Purchase_Date"].min().reset_index().rename(columns={"Purchase_Date": "First_order"})
+
+days_30 = first_order.copy()
+
+days_30["30_days"] = days_30["First_order"] + pd.Timedelta(days=30)
+
+days_30 = days_30.drop(columns=["First_order"])
+
+final_customer = final_customer.merge(days_30, on="Customer_ID", how="left")
+
+days_60 = first_order.copy()
+
+days_60["60_days"] = days_60["First_order"] + pd.Timedelta(days=60)
+
+days_60 = days_60.drop(columns=["First_order"])
+
+final_customer = final_customer.merge(days_60, on="Customer_ID", how="left")
+
+days_90 = first_order.copy()
+
+days_90["90_days"] = days_90["First_order"] + pd.Timedelta(days=90)
+
+days_90 = days_90.drop(columns=["First_order"])
+
+final_customer = final_customer.merge(days_90, on="Customer_ID", how="left")
 
 ```
 
@@ -2004,7 +2072,13 @@ category_frame[category_frame["Sales"] == 0]
 
 ```python
 
+multiple_pur = cohort.copy()
 
+cus_count = multiple_pur.groupby("Customer_ID")["Purchase_Date"].nunique().reset_index().rename(columns={"Purchase_Date": "cus_count"})
+
+repeated_cus = cus_count[cus_count["cus_count"] > 1]
+
+((repeated_cus["Customer_ID"].count() / cus_count["Customer_ID"].nunique()) * 100).round(2)
 
 ```
 
@@ -2020,7 +2094,40 @@ category_frame[category_frame["Sales"] == 0]
 
 ```python
 
+revenue_con = cohort.copy()
 
+cus_cou = revenue_con.groupby("Customer_ID")["Purchase_Date"].count().reset_index(name="Cus_count")
+
+cus_cal = cus_cou[cus_cou["Cus_count"] > 1]
+
+cus_cal = cus_cal.set_index("Customer_ID")
+
+cus_cal = cus_cal.index
+
+rep_cus = revenue_con[revenue_con["Customer_ID"].isin(cus_cal)]
+
+rep_mean_cal = rep_cus.groupby("Customer_ID")["Revenue"].sum().reset_index(name="Sales")
+
+rep_mean_cal["High_value"] = rep_mean_cal["Sales"].apply(lambda x : "High_value" if x > rep_mean_cal["Sales"].mean() else "Not")
+
+high_val_cal = rep_mean_cal[rep_mean_cal["High_value"] == "High_value"]
+
+high_val = ((high_val_cal["Sales"].sum() / revenue_con["Revenue"].sum()) * 100).round(2)
+
+one_time_cus = cus_cou[cus_cou["Cus_count"] <= 1]
+
+one_time_cus = one_time_cus.set_index("Customer_ID")
+
+one_time_cus = one_time_cus.index
+
+one_time_value = revenue_con[revenue_con["Customer_ID"].isin(one_time_cus)]
+
+one_time = ((one_time_value["Revenue"].sum() / revenue_con["Revenue"].sum()) * 100).round(2)
+
+pd.DataFrame({
+    "High_Value_Contribution": [high_val],
+    "One_Time_Cus_Contribution": [one_time]
+})
 
 ```
 
@@ -2036,7 +2143,23 @@ category_frame[category_frame["Sales"] == 0]
 
 ```python
 
+month_wise = cohort.copy()
 
+month_wise["Month_Name"] = month_wise["Purchase_Date"].dt.month_name()
+
+month_wise["Month"] = month_wise["Purchase_Date"].dt.month
+
+month_group = month_wise.groupby(["Month_Name", "Month"])["Customer_ID"].count().reset_index()
+
+month_group = month_group.sort_values(by=["Month"])
+
+month_group["Segment"] = pd.qcut(
+    month_group["Customer_ID"],
+    q=3,
+    labels=["Low_Frequency", "Normal", "High_Frequency"]
+)
+
+month_group
 
 ```
 
