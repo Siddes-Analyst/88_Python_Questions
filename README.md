@@ -2323,6 +2323,10 @@ price_cal["Unit Price"].corr(price_cal["Unit Sold"])
 
 ```
 
+## 📷 Output
+
+![](Git_hub_Output/78.png)
+
 ---
 
 ### <b> Q79 </b>
