@@ -2607,15 +2607,20 @@ year_cal
 
 #### *Then identify the major contributors to the decline.*
 
-```python
-
-
-
-```
-
 ## 📷 Output
 
-![](Git_hub_Output/88.png)
+![](Git_hub_Output/88.1.png)
+![](Git_hub_Output/88.2.png)
+![](Git_hub_Output/88.3.png)
+![](Git_hub_Output/88.4.png)
+![](Git_hub_Output/88.5.png)
+![](Git_hub_Output/88.6.png)
+![](Git_hub_Output/88.7.png)
+![](Git_hub_Output/88.8.png)
+![](Git_hub_Output/88.9.png)
+![](Git_hub_Output/88.10.png)
+![](Git_hub_Output/88.11.png)
+![](Git_hub_Output/88.12.png)
 
 ---
 
