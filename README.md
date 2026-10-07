@@ -1,4 +1,4 @@
-# Dmart Rice Sales Analysis MySQL
+# D-Mart Rice Sales & Business Analytics | 88 Python/Pandas Analysis
 
 ## 📊 Project Overview
 
