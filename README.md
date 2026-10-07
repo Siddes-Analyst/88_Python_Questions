@@ -1229,21 +1229,81 @@ positive_growth
 
 #### *For every product, identify its first recorded sales month and latest recorded sales month.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/43.png)
+
+---
+
 ### <b> Q44 </b>
 
 #### *For each brand, compare revenue in its first recorded month with revenue in its latest recorded month.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/44.png)
+
+---
 
 ### <b> Q45 </b>
 
 #### *For every location, determine the first and latest month in which sales were recorded.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/45.png)
+
+---
+
 ### <b> Q46 </b>
 
 #### *For each product category, compare its performance during its first available period with its most recent period.*
 
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/46.png)
+
+---
+
 ### <b> Q47 </b>
 
 #### *Identify products that appeared early in the dataset but have very weak or zero activity in later periods.*
+
+```python
+
+
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/47.png)
+
+---
 
 ## <b> 📈 8. Previous & Next Event Analysis
 
