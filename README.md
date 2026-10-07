@@ -1382,9 +1382,58 @@ com_frame
 
 #### *Calculate the change in monthly revenue for every location compared with its previous month.*
 
+```python
+
+change_month = rice.copy()
+
+month_frame = change_month.groupby(["Location", "Year", "Month", "Month Name"])["Sales"].sum().reset_index()
+
+month_frame["month_shift"] = month_frame.groupby(["Location"])["Sales"].shift(1)
+
+month_frame["Difference"] = month_frame["Sales"] - month_frame["month_shift"]
+
+month_frame
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/48.png)
+
+---
+
 ### <b> Q49 </b>
 
 #### *For every product, calculate the change in units sold from the previous month.*
+
+```python
+
+unit_large_change = rice.copy()
+
+unit_frame = unit_large_change.groupby(["Product Name", "Year", "Month", "Month Name"])["Unit Sold"].sum().reset_index()
+
+unit_frame = unit_frame.sort_values(by=["Product Name", "Year", "Month"])
+
+unit_frame["month_shift"] = unit_frame.groupby(["Product Name"])["Unit Sold"].shift(1)
+
+unit_frame["difference"] = unit_frame["Unit Sold"] - unit_frame["month_shift"]
+
+positive_changes = unit_frame[unit_frame["difference"] > 0].copy()
+
+positive_changes["diff_seg"] = positive_changes["difference"].apply(
+    lambda x: "large changes" if x > positive_changes["difference"].mean() else "Not"
+)
+
+positive_changes[positive_changes["diff_seg"] == "large changes"]
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/49.1.png)
+![](Git_hub_Output/49.2.png)
+
+---
 
 #### *Identify unusually large changes.*
 
@@ -1392,13 +1441,95 @@ com_frame
 
 #### *Identify product-location combinations where sales suddenly increased or decreased compared with the previous month.*
 
+```python
+
+pro_loc = rice.copy()
+
+pro_frame = pro_loc.groupby(["Product Name", "Location", "Year", "Month", "Month Name"])["Sales"].sum().reset_index()
+
+pro_frame = pro_frame.sort_values(by=["Product Name", "Location", "Year", "Month"])
+
+pro_frame["shift"] = pro_frame.groupby(["Product Name", "Location"])["Sales"].shift(1)
+
+pro_frame["Difference"] = pro_frame["Sales"] - pro_frame["shift"]
+
+pro_frame["Difference"] = pro_frame["Difference"].abs()
+
+pro_index = pro_frame.groupby(["Product Name", "Location"])["Difference"].mean().reset_index()
+
+pro_index = pro_index.rename(columns={"Difference":"Month_Avg"})
+
+pro_frame = pro_frame.merge(
+    pro_index,
+    on=["Product Name", "Location"],
+    how="left"
+)
+
+pro_frame[pro_frame["Difference"] > pro_frame["Month_Avg"]]
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/50.png)
+
+---
+
 ### <b> Q51 </b>
 
 #### *For each brand, calculate month-to-month revenue changes and identify periods of high volatility.*
 
+```python
+
+vol = rice.copy()
+
+vol_frame = vol.groupby(["Rice Brand", "Year", "Month", "Month Name"])["Sales"].sum().reset_index()
+
+vol_frame = vol_frame.sort_values(by=["Rice Brand", "Year", "Month"])
+
+vol_frame["shift"] = vol_frame.groupby(["Rice Brand"])["Sales"].shift(1)
+
+vol_frame["Diff"] = vol_frame["Sales"] - vol_frame["shift"]
+
+vol_frame["Diff"] = vol_frame["Diff"].abs()
+
+vol_frame["Growth"] = ((vol_frame["Sales"] - vol_frame["shift"]) / vol_frame["shift"]) * 100
+
+vol_frame[vol_frame["Growth"] > 50]
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/51.png)
+
+---
+
 ### <b> Q52 </b>
 
 #### *For every product, compare its current month with its previous month and identify the largest positive and negative movements.*
+
+```python
+
+pos_neg = rice.copy()
+
+pos_frame = pos_neg.groupby(["Product Name", "Year", "Month", "Month Name"])["Sales"].sum().reset_index()
+
+pos_frame["shift"] = pos_frame.groupby(["Product Name"])["Sales"].shift(1)
+
+pos_frame["growth"] = ((pos_frame["Sales"] - pos_frame["shift"]) / pos_frame["shift"] * 100).round(2)
+
+largest_positive = pos_frame[pos_frame["growth"] == pos_frame["growth"].max()]
+
+largest_positive
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/52.png)
+
+---
 
 ## <b> 📈 9. Duplicate & Record-Quality Analysis
 
