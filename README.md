@@ -2419,7 +2419,15 @@ pack_group
 
 ```python
 
+per_con = rice.copy()
 
+per_con_cal = per_con.groupby("Product Category")["Sales"].sum().reset_index(name=("Pro_Total"))
+
+per_con_cal["Pro_Contribution"] = (per_con_cal["Pro_Total"] / per_con_cal["Pro_Total"].sum() * 100).round(2)
+
+per_con_cal["Pro_Contribution"] = per_con_cal["Pro_Contribution"].apply(lambda x : f"{x :.2f} %")
+
+per_con_cal.sort_values(by=["Pro_Total"], ascending=False)
 
 ```
 
@@ -2435,7 +2443,17 @@ pack_group
 
 ```python
 
+com_two = rice.copy()
 
+comparision_cal = com_two.groupby(["Rice Brand"])[["Sales", "Unit Sold"]].sum()
+
+comparision_cal["Sales_Contribution"] = (comparision_cal["Sales"] / comparision_cal["Sales"].sum() * 100).round(2)
+
+comparision_cal["Unit_Sold_Contribution"] = (comparision_cal["Unit Sold"] / comparision_cal["Unit Sold"].sum() * 100).round(2)
+
+comparision_cal["difference"] = comparision_cal["Sales_Contribution"] - comparision_cal["Unit_Sold_Contribution"]
+
+comparision_cal.sort_values(by=["difference"], ascending=False)
 
 ```
 
@@ -2451,7 +2469,13 @@ pack_group
 
 ```python
 
+loc_per = rice.copy()
 
+loc_cal = loc_per.groupby("Location")["Sales"].sum().reset_index(name=("Total_Revenue"))
+
+loc_cal["Revenue_Contribution"] = ((loc_cal["Total_Revenue"] / loc_cal["Total_Revenue"].sum()) * 100).round(2)
+
+loc_cal.sort_values(by=["Revenue_Contribution"], ascending=False)
 
 ```
 
@@ -2467,7 +2491,21 @@ pack_group
 
 ```python
 
+pro_cat_month = rice.copy()
 
+pro_cat_cal = pro_cat_month.groupby(["Year", "Month", "Month Name", "Product Category"])["Sales"].sum().reset_index(name=("Pro_Sales"))
+
+total_sales = pro_cat_cal.groupby(["Year", "Month"])["Pro_Sales"].sum().reset_index(name=("Total_Sales"))
+
+total_cal = pro_cat_cal.merge(total_sales, on=["Year", "Month"], how="left")
+
+total_cal["Revenue_Contribution"] = ((total_cal["Pro_Sales"] / total_cal["Total_Sales"]) * 100).round(2)
+
+total_cal = total_cal.sort_values(by=["Year", "Month", "Revenue_Contribution"], ascending=False)
+
+total_cal["Revenue_Contribution"] = total_cal["Revenue_Contribution"].apply(lambda x : f"{x :.2f} %")
+
+total_cal
 
 ```
 
@@ -2483,7 +2521,15 @@ pack_group
 
 ```python
 
+top_10 = rice.copy()
 
+top_10_group = top_10.groupby("Product Name")["Sales"].sum().reset_index(name=("Total_Sales"))
+
+top_10_group["Sales_Contribution"] = ((top_10_group["Total_Sales"] / top_10_group["Total_Sales"].sum()) * 100).round(2)
+
+top_10_Pro = top_10_group.sort_values(by=["Sales_Contribution"], ascending=False).head(10)
+
+top_10_Pro
 
 ```
 
@@ -2499,7 +2545,17 @@ pack_group
 
 ```python
 
+profit_loc = rice.copy()
 
+profit_cal = profit_loc.groupby("Location")["Profit"].sum().reset_index(name=("Location_Profit"))
+
+profit_cal["Profit_Contribution"] = ((profit_cal["Location_Profit"] / profit_cal["Location_Profit"].sum()) * 100).round(2)
+
+profit_cal = profit_cal.sort_values(by=["Profit_Contribution"], ascending=False)
+
+profit_cal["Profit_Contribution"] = profit_cal["Profit_Contribution"].apply(lambda x : f"{x :.2f} %")
+
+profit_cal
 
 ```
 
@@ -2515,7 +2571,19 @@ pack_group
 
 ```python
 
+cat_over_time = rice.copy()
 
+year_cal = cat_over_time.groupby(["Year", "Product Category"])["Sales"].sum().reset_index(name=("Total_Sales"))
+
+pro_sum = year_cal.groupby("Year")["Total_Sales"].sum().reset_index(name=("Pro_Sum"))
+
+pro_sum = pro_sum.set_index("Year")["Pro_Sum"]
+
+year_cal["Pro_sum"] = year_cal["Year"].map(pro_sum)
+
+year_cal["Pro_Contribution"] = ((year_cal["Total_Sales"] / year_cal["Pro_sum"]) * 100).round(2)
+
+year_cal
 
 ```
 
