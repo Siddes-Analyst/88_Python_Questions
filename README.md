@@ -1646,24 +1646,6 @@ loc[(loc["Product Name"] == "DMart Premia Poha Basmati") & (loc["Product Quantit
 
 ---
 
-### <b> Q57 </b>
-
-#### *Investigate whether the same product appears under inconsistent naming conventions.*
-
-#### *Explain how you would clean the data before analysis.*
-
-```python
-
-
-
-```
-
-## 📷 Output
-
-![](Git_hub_Output/57.png)
-
----
-
 ## <b> 📈 10. Segmentation & Classification Analysis
 
 ### <b> Q58 </b>
@@ -1672,7 +1654,23 @@ loc[(loc["Product Name"] == "DMart Premia Poha Basmati") & (loc["Product Quantit
 
 ```python
 
+three_seg = rice.copy()
 
+three_group = three_seg.groupby("Location")["Sales"].sum().reset_index()
+
+three_group["share_per"] = (three_group["Sales"] / three_group["Sales"].sum()) * 100
+
+three_group["revenue_partion"] = pd.qcut(
+    three_group["Sales"],
+    q=3,
+    labels=["Low Revenue", "Medium Revenue", "High Revenue"]
+)
+
+three_group
+
+pd.set_option('display.float_format', '{:.2f}'.format)
+
+three_group.groupby("revenue_partion")["Sales"].agg(["count", "mean", "sum", "min", "max"])
 
 ```
 
@@ -1698,7 +1696,15 @@ loc[(loc["Product Name"] == "DMart Premia Poha Basmati") & (loc["Product Quantit
 
 ```python
 
+high_low = rice.copy()
 
+cal_frame = high_low.groupby("Product Name")[["Sales", "Profit"]].sum().reset_index()
+
+cal_frame["Sales_Volumn"] = cal_frame["Sales"].apply(lambda x : "High Volumn" if x > cal_frame["Sales"].mean() else "Low Volumn")
+
+cal_frame["Gross_Margin"] = (cal_frame["Profit"] / cal_frame["Sales"]) * 100
+
+cal_frame["Margin_Avg"] = cal_frame["Gross_Margin"].apply(lambda x : "High Margin" if x > cal_frame["Gross_Margin"].mean() else "Low Margin")
 
 ```
 
@@ -1717,7 +1723,21 @@ loc[(loc["Product Name"] == "DMart Premia Poha Basmati") & (loc["Product Quantit
 
 ```python
 
+brand_sta = rice.copy()
 
+brand_frame = brand_sta.groupby("Rice Brand")["Sales"].sum()
+
+brand_frame = brand_frame.reset_index()
+
+brand_frame = brand_frame.sort_values(by=["Sales"], ascending=False)
+
+brand_frame["Sales_cont"] = (brand_frame["Sales"] / brand_frame["Sales"].sum()) * 100
+
+brand_frame["brand_segment"] = pd.qcut(
+    brand_frame["Sales_cont"],
+    q=3,
+    labels=["Low_Sales", "Medium_Sales", "High_Sales"]
+)
 
 ```
 
@@ -1733,7 +1753,25 @@ loc[(loc["Product Name"] == "DMart Premia Poha Basmati") & (loc["Product Quantit
 
 ```python
 
+seg_pro = rice.copy()
 
+seg_frame = seg_pro.groupby("Product Name")[["Sales", "Profit"]].sum().reset_index()
+
+seg_frame = seg_frame.sort_values(by=["Profit"], ascending=False)
+
+seg_frame["Profitability"] = (seg_frame["Profit"] / seg_frame["Sales"]) * 100
+
+seg_frame["Profitability_segment"] = pd.qcut(
+    seg_frame["Profitability"],
+    q=3,
+    labels=["Low_Profit", "Medium_Profit", "High_Profit"]
+)
+
+seg_frame
+
+seg_cal = seg_frame.groupby("Profitability_segment", observed=False)["Profit"].agg(["count", "sum", "mean", "min", "max"])
+
+seg_cal
 
 ```
 
@@ -1749,7 +1787,19 @@ loc[(loc["Product Name"] == "DMart Premia Poha Basmati") & (loc["Product Quantit
 
 ```python
 
+pack_size = rice.copy()
 
+pack_frame = pack_size.groupby("Product Quantity")["Sales"].sum().reset_index()
+
+pack_frame["contribution"] = (pack_frame["Sales"] / pack_frame["Sales"].sum()) * 100
+
+pack_frame["segment"] = pd.qcut(
+    pack_frame["contribution"],
+    q=3,
+    labels=["Low_Performance", "Medium_Performance", "High_Performance"]
+)
+
+pack_frame.sort_values(by=["contribution"], ascending=False)
 
 ```
 
