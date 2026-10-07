@@ -2173,7 +2173,31 @@ month_group
 
 ```python
 
+brand_location = rice.copy()
 
+brand_frame = brand_location.groupby(["Rice Brand", "Location"])["Sales"].sum().reset_index(name=("Total_Sales"))
+
+brand_frame = brand_frame.sort_values(by=["Rice Brand", "Total_Sales"], ascending=False).reset_index()
+
+brand_frame = brand_frame.drop(columns=["index"])
+
+total_revenue = brand_location.groupby("Rice Brand")["Sales"].sum().reset_index(name=("Total_Revenue"))
+
+total_revenue = total_revenue.sort_values(by=["Rice Brand", "Total_Revenue"], ascending=False).reset_index()
+
+total_revenue = total_revenue.drop(columns=["index"])
+
+growth_performance = brand_frame.merge(total_revenue, on="Rice Brand", how="left")
+
+growth_performance["Growth"] = ((growth_performance["Total_Sales"] / growth_performance["Total_Revenue"]) * 100).round(2)
+
+growth_performance.head(30)
+
+gro = growth_performance.groupby(["Rice Brand", "Location"])["Total_Sales"].sum().reset_index()
+
+gro = gro.sort_values(by=["Rice Brand", "Total_Sales"], ascending=False).groupby("Rice Brand").head(3)
+
+gro
 
 ```
 
@@ -2189,7 +2213,25 @@ month_group
 
 ```python
 
+pac_size = rice.copy()
 
+pac_group = pac_size.groupby(["Product Category", "Product Quantity"])["Sales"].sum().reset_index(name=("Total_Sales"))
+
+pac_group = pac_group.sort_values(by=["Product Category", "Total_Sales"], ascending=False)
+
+category_sum = pac_group.groupby("Product Category")["Total_Sales"].sum().reset_index(name=("Product_sum"))
+
+pac_group["Product_sum"] = pac_group["Product Category"].map(category_sum.set_index("Product Category")["Product_sum"])
+
+pac_group["Sales_Contribution"] = ((pac_group["Total_Sales"] / pac_group["Product_sum"]) * 100).round(2)
+
+pac_group
+
+category_analysis = pac_group.groupby(["Product Category"]).head(1)
+
+category_analysis.sort_values(by=["Product Quantity"])
+
+category_analysis["Product Quantity"].value_counts().reset_index()
 
 ```
 
@@ -2205,7 +2247,21 @@ month_group
 
 ```python
 
+loc_gross_margin = rice.copy()
 
+sales_cal = loc_gross_margin.groupby("Location")["Sales"].sum().reset_index().sort_values(by=["Sales"], ascending=False)
+
+sales_cal
+
+profit_cal = loc_gross_margin.groupby("Location")["Profit"].sum().reset_index().sort_values(by=["Profit"], ascending=False)
+
+profit_cal
+
+profit_margin_cal = sales_cal.merge(profit_cal, on="Location", how="left")
+
+profit_margin_cal["Profit_margin"] = ((profit_margin_cal["Profit"] / profit_margin_cal["Sales"]) * 100).round()
+
+profit_margin_cal.sort_values(by=["Profit_margin"], ascending=False)
 
 ```
 
@@ -2221,7 +2277,13 @@ month_group
 
 ```python
 
+brand_unit = rice.copy()
 
+brand_unit_corr = brand_unit.groupby("Rice Brand")[["Unit Sold", "Sales"]].sum().sort_values(by=["Sales", "Unit Sold"], ascending=False)
+
+brand_unit_corr
+
+brand_unit_corr["Sales"].corr(brand_unit_corr["Unit Sold"])
 
 ```
 
@@ -2237,13 +2299,29 @@ month_group
 
 ```python
 
+high_price = rice.copy()
 
+price_cal = high_price[["Unit Price", "Unit Sold"]].sort_values(by=["Unit Price"], ascending=False)
+
+price_cal["Price_Segment"] = pd.qcut(price_cal["Unit Price"], q=3, labels=["Low_Price", "Medium_Price", "High_Price"])
+
+price_cal
+
+High_Price = price_cal[price_cal["Price_Segment"] == "High_Price"]
+
+High_Price["Unit Price"].corr(High_Price["Unit Sold"])
+
+Medium_Price = price_cal[price_cal["Price_Segment"] == "Medium_Price"]
+
+Medium_Price["Unit Price"].corr(Medium_Price["Unit Sold"])
+
+Low_Price = price_cal[price_cal["Price_Segment"] == "Low_Price"]
+
+Low_Price["Unit Price"].corr(Low_Price["Unit Sold"])
+
+price_cal["Unit Price"].corr(price_cal["Unit Sold"])
 
 ```
-
-## 📷 Output
-
-![](Git_hub_Output/78.png)
 
 ---
 
@@ -2253,7 +2331,33 @@ month_group
 
 ```python
 
+strong_poor = rice.copy()
 
+str_poor_frame = strong_poor.groupby(["Location", "Product Name"])["Sales"].sum().reset_index(name=("Total_Sales"))
+
+str_poor_frame = str_poor_frame.sort_values(by=["Location", "Total_Sales"], ascending=False)
+
+location_mean = str_poor_frame.groupby("Location")["Total_Sales"].mean().reset_index(name=("Location Mean"))
+
+location_mean = location_mean.set_index("Location")["Location Mean"]
+
+str_poor_frame["loc_mean"] = str_poor_frame["Location"].map(location_mean)
+
+str_poor_frame["Product_segment"] = np.where(
+    str_poor_frame["Total_Sales"] >= str_poor_frame["loc_mean"], "Strong_Performance", "Poor_Performance"
+)
+
+strong_per = str_poor_frame[str_poor_frame["Product_segment"] == "Strong_Performance"]
+
+poor_per = str_poor_frame[str_poor_frame["Product_segment"] == "Poor_Performance"]
+
+str_pro_name = strong_per[["Location", "Product Name"]]
+
+week_pro_name = strong_per[["Location", "Product Name"]]
+
+comparision = strong_per.merge(poor_per, on="Product Name", how="inner")
+
+comparision
 
 ```
 
@@ -2269,7 +2373,31 @@ month_group
 
 ```python
 
+high_dep = rice.copy()
 
+brand_group = high_dep.groupby(["Product Category", "Rice Brand"])["Sales"].sum().reset_index(name=("Brand_Total"))
+
+brand_group = brand_group.sort_values(by=["Product Category", "Brand_Total"], ascending=False)
+
+brand_total = high_dep.groupby(["Product Category"])["Sales"].sum().reset_index(name=("Brand_Total"))
+
+brand_total = brand_total.set_index("Product Category")["Brand_Total"]
+
+brand_group["Product_total"] = brand_group["Product Category"].map(brand_total)
+
+brand_group["Brand_Contribution"] = ((brand_group["Brand_Total"] / brand_group["Product_total"]) * 100).round(2)
+
+brand_group
+
+pack_group = high_dep.groupby(["Product Category", "Product Quantity"])["Sales"].sum().reset_index(name=("pack_total"))
+
+pack_group = pack_group.sort_values(by=["Product Category", "pack_total"], ascending=False)
+
+pack_group["Product_total"] = pack_group["Product Category"].map(brand_total)
+
+pack_group["Pack_Contribution"] = ((pack_group["pack_total"] / pack_group["Product_total"]) * 100).round(2)
+
+pack_group
 
 ```
 
