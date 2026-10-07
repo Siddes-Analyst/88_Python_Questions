@@ -1817,7 +1817,19 @@ pack_frame.sort_values(by=["contribution"], ascending=False)
 
 ```python
 
+one_or_more = rice.copy()
 
+one_cal = one_or_more.groupby(["Product Name", "Location", "Year", "Month", "Month Name", "Sales"]).agg(sales_count = ("Sales", "count"))
+
+one_cal = one_cal.reset_index()
+
+one_cal = one_cal.sort_values(by=["Product Name", "Location", "Year", "Month", "Month Name", "Sales"])
+
+one_zero_filter = one_cal[one_cal["Sales"] == 0]
+
+pro_loc_combo = one_zero_filter.groupby(["Product Name", "Location"])["sales_count"].count()
+
+pro_loc_combo.reset_index()
 
 ```
 
@@ -1833,7 +1845,15 @@ pack_frame.sort_values(by=["contribution"], ascending=False)
 
 ```python
 
+zero_month = rice.copy()
 
+zero_month.head(2)
+
+zero_cal = zero_month.groupby(["Product Name", "Year", "Month", "Month Name"])["Sales"].sum().reset_index()
+
+zero_cal = zero_cal.sort_values(by=["Product Name", "Year", "Month"])
+
+zero_cal[zero_cal["Sales"] == 0]
 
 ```
 
@@ -1849,7 +1869,21 @@ pack_frame.sort_values(by=["contribution"], ascending=False)
 
 ```python
 
+loc_category = rice.copy()
 
+loc_frame = loc_category.groupby(["Location", "Product Category", "Year", "Month", "Month Name"])["Sales"].sum().reset_index()
+
+loc_frame = loc_frame.sort_values(by=["Location", "Product Category", "Year", "Month"])
+
+loc_frame
+
+loc_frame[loc_frame["Sales"] == 0]
+
+ponni_rice = loc_frame[loc_frame["Product Category"] == "Ponni Rice"]
+
+ponni_rice.reset_index()
+
+ponni_rice.groupby("Year")["Sales"].sum()
 
 ```
 
@@ -1865,13 +1899,30 @@ pack_frame.sort_values(by=["contribution"], ascending=False)
 
 ```python
 
+irregular_sales = rice.copy()
 
+irregular_frame = irregular_sales.groupby(["Product Name", "Location", "Year", "Month", "Month Name"])["Sales"].sum().reset_index()
+
+irregular_frame = irregular_frame.sort_values(by=["Product Name", "Location", "Year", "Month"])
+
+irregular_frame["Previous_month"] = irregular_frame.groupby(["Product Name", "Location"])["Sales"].shift(1)
+
+irregular_frame["Difference"] = irregular_frame["Sales"] - irregular_frame["Previous_month"]
+
+positive_diff = irregular_frame[irregular_frame["Difference"] > 0].copy()
+
+positive_diff["Positive_change"] = positive_diff["Difference"].apply(
+    lambda x : "irregular_difference" if x > positive_diff["Difference"].mean() else "Normal"
+)
+
+positive_diff[positive_diff["Positive_change"] == "irregular_difference"]
 
 ```
 
 ## 📷 Output
 
-![](Git_hub_Output/66.png)
+![](Git_hub_Output/66.1.png)
+![](Git_hub_Output/66.2.png)
 
 ---
 
@@ -1881,7 +1932,13 @@ pack_frame.sort_values(by=["contribution"], ascending=False)
 
 ```python
 
+category_loc_combo = rice.copy()
 
+category_loc_combo.head(2)
+
+category_frame = category_loc_combo.groupby(["Product Category", "Location", "Year", "Month", "Month Name"])["Sales"].sum().reset_index()
+
+category_frame[category_frame["Sales"] == 0]
 
 ```
 
