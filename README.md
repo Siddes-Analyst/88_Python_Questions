@@ -6,21 +6,21 @@ This project uses a D-Mart Rice Sales dataset covering 5 years of sales data acr
 
 I developed 88 Python/Pandas analytical solutions across the following key areas:
 
-🎯 KPI & Aggregation Analysis Analysis
-📊 Conditional & Category-Based Analysis
-👥 Top / Bottom Performer Analysis
-📅 Period-over-Period Comparison
-🏆 Trend & Cumulative Analysis
-📈 Rolling / Moving-Window Analysis
-🔄 First & Latest Event Analysis
-🏪 Previous & Next Event Analysis
-📦 Duplicate & Record-Quality Analysis
-🧩 Segmentation & Classification Analysis
-🏷️ Missing, Inactive & Gap Analysis
-💰 Cohort & Retention Analysis
-💹 Relationship & Cross-Entity Analysis
-📌 Contribution & Share Analysis
-🔍 Root-Cause & Drill-Down Analysis
+- 🎯 KPI & Aggregation Analysis Analysis
+- 📊 Conditional & Category-Based Analysis
+- 👥 Top / Bottom Performer Analysis
+- 📅 Period-over-Period Comparison
+- 🏆 Trend & Cumulative Analysis
+- 📈 Rolling / Moving-Window Analysis
+- 🔄 First & Latest Event Analysis
+- 🏪 Previous & Next Event Analysis
+- 📦 Duplicate & Record-Quality Analysis
+- 🧩 Segmentation & Classification Analysis
+- 🏷️ Missing, Inactive & Gap Analysis
+- 💰 Cohort & Retention Analysis
+- 💹 Relationship & Cross-Entity Analysis
+- 📌 Contribution & Share Analysis
+- 🔍 Root-Cause & Drill-Down Analysis
   
 Each question includes the problem statement, Python/Pandas code, and the corresponding output for practical data-analysis practice.
   
