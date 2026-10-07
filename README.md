@@ -2131,6 +2131,8 @@ largest_positive
 
 #### *Company → Location → Category → Brand → Product*
 
+#### *Then identify the major contributors to the decline.*
+
 ```python
 
 
@@ -2143,4 +2145,4 @@ largest_positive
 
 ---
 
-#### *Then identify the major contributors to the decline.*
+
