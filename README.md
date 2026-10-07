@@ -1,3 +1,29 @@
+# Dmart Rice Sales Analysis MySQL
+
+## 📊 Project Overview
+
+This project uses a D-Mart Rice Sales dataset covering 5 years of sales data across Year, Month, Date, Location, Product Name, Product ID, Product Category, Product Quantity, Rice Brand, Unit Price, Purchase Cost, Unit Sold, Total Purchase, Sales, and Profit.
+
+I developed 88 Python/Pandas analytical solutions across the following key areas:
+- 📅 Time Series Analysis
+- 👥 Customer Analysis
+- 📦 Product Analysis
+- 🏷️ Brand Analysis
+- 🏪 Location Analysis
+- 💰 Sales & Revenue Analysis
+- 📈 Growth Analysis
+- 💹 Profitability Analysis
+- 🎯 KPI Analysis
+- 🏆 Ranking Analysis
+- 🔄 Trend Analysis
+- 📊 Comparative Analysis
+- 🧩 Segmentation Analysis
+- 📌 Contribution Analysis
+- 🔍 Root Cause Analysis
+Each question includes the problem statement, Python/Pandas code, and the corresponding output for practical data-analysis practice.
+  
+---
+
 ## <b> 📈 1. KPI & Aggregation Analysis
 
 ### <b> Q1 </b>
