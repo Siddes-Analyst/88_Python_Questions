@@ -1231,7 +1231,9 @@ positive_growth
 
 ```python
 
+first_last = rice.copy()
 
+first_last.groupby("Product Name")["Date"].agg(["min", "max"])
 
 ```
 
@@ -1247,7 +1249,23 @@ positive_growth
 
 ```python
 
+fir_las_com = rice.copy()
 
+fir_las_com = fir_las_com.sort_values(["Rice Brand", "Date"])
+
+res = fir_las_com.groupby("Rice Brand").agg(first_date = ("Date", "min"), last_date = ("Date", "max")).reset_index()
+
+first_value = fir_las_com.loc[fir_las_com.groupby("Rice Brand")["Date"].idxmin(), ["Rice Brand", "Sales"]].rename(columns= {"Sales": "first_value"})
+
+last_value = fir_las_com.loc[fir_las_com.groupby("Rice Brand")["Date"].idxmax(), ["Rice Brand", "Sales"]].rename(columns= {"Sales": "Last_value"})
+
+res = res.merge(first_value, on= "Rice Brand")
+
+res = res.merge(last_value, on= "Rice Brand")
+
+res["difference"] = res["first_value"] - res["Last_value"]
+
+res
 
 ```
 
@@ -1263,7 +1281,13 @@ positive_growth
 
 ```python
 
+location = rice.copy()
 
+location = location.sort_values(["Location", "Date"])
+
+filter_frame = location.groupby("Location")["Date"].agg(First_date = "min", Last_date = "max")
+
+filter_frame
 
 ```
 
@@ -1279,7 +1303,30 @@ positive_growth
 
 ```python
 
+pro_cat = rice.copy()
 
+pro_frame = pro_cat.groupby(["Product Category", "Date"])["Sales"].sum().reset_index()
+
+first_date = pro_frame.groupby("Product Category").agg(first_date = ("Date", "min"))
+
+last_date = pro_frame.groupby("Product Category").agg(last_date = ("Date", "max"))
+
+first_value = first_date.merge(pro_frame,
+    left_on= ["Product Category", "first_date"],
+    right_on= ["Product Category", "Date"])["Sales"].sum().rename("first_value").reset_index()
+
+last_value = last_date.merge(pro_frame,
+    left_on= ["Product Category", "last_date"],
+    right_on= ["Product Category", "Date"],
+    how= "left").groupby(["Product Category", "Date"])["Sales"].sum().rename("last_value").reset_index()
+
+last_value.drop(columns= ["Product Category"], inplace= True)
+
+final = pd.concat([first_value,last_value], axis= 1)
+
+final["diff"] = final["last_value"] - final["first_value"]
+
+final
 
 ```
 
@@ -1295,7 +1342,31 @@ positive_growth
 
 ```python
 
+three_mon = rice.copy()
 
+three_first = three_mon.groupby(["Product Name", "Year", "Month", "Month Name"])["Sales"].sum().groupby(level= 0).head(3)
+
+three_first = three_first.reset_index()
+
+three_cont = three_first.groupby("Product Name")["Sales"].sum().reset_index()
+
+three_last = three_mon.groupby(["Product Name", "Year", "Month", "Month Name"])["Sales"].sum().groupby(level= 0).tail(3)
+
+three_last = three_last.reset_index()
+
+three_last_cont = three_last.groupby("Product Name")["Sales"].sum().reset_index()
+
+three_cont = three_cont.rename(columns= {"Sales": "first_3_month"})
+
+three_last_cont = three_last_cont.rename(columns= {"Sales": "last_3_month"})
+
+com_frame = three_cont.merge(three_last_cont, on= "Product Name", how= "left")
+
+com_frame["difference"] = (com_frame["last_3_month"] / com_frame["first_3_month"]) * 100
+
+com_frame["difference"] = com_frame["difference"].apply(lambda x : f"{x :.2f} %")
+
+com_frame
 
 ```
 
