@@ -1539,7 +1539,11 @@ largest_positive
 
 ```python
 
+dup = rice.copy()
 
+dup = dup.reset_index()
+
+dup[dup.duplicated(keep= False)]
 
 ```
 
@@ -1557,7 +1561,9 @@ largest_positive
 
 ```python
 
+inv = rice.copy()
 
+inv[inv.duplicated(subset= ["Date", "Location", "Product ID"], keep= False)]
 
 ```
 
@@ -1573,7 +1579,11 @@ largest_positive
 
 ```python
 
+pro_id = rice.copy()
 
+check = pro_id.groupby("Product ID")[["Product Name", "Product Category", "Rice Brand", "Product Quantity"]].nunique()
+
+check[(check > 1).any(axis= 1)]
 
 ```
 
@@ -1591,13 +1601,48 @@ largest_positive
 
 ```python
 
+three_level = rice.copy()
 
+three_level.groupby(["Product Name", "Year", "Month", "Month Name", "Product Quantity"])["Unit Price"].nunique().reset_index()
 
 ```
 
 ## 📷 Output
 
-![](Git_hub_Output/56.png)
+![](Git_hub_Output/56.1.png)
+
+```python
+
+loc = three_level.groupby(["Product Name", "Location", "Product Quantity"])["Unit Price"].nunique().reset_index()
+
+loc
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/56.2.png)
+
+```python
+
+loc[(loc["Product Name"] == "24 Mantra Organic Poha") & (loc["Product Quantity"] == "1 kg")]
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/56.3.png)
+
+```python
+
+loc[(loc["Product Name"] == "DMart Premia Poha Basmati") & (loc["Product Quantity"] == "5 kg")]
+
+```
+
+## 📷 Output
+
+![](Git_hub_Output/56.4.png)
+
 
 ---
 
